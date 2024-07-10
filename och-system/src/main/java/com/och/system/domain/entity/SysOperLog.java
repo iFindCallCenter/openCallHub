@@ -84,14 +84,6 @@ public class SysOperLog extends BaseEntity implements Serializable {
 
 
     /**
-     * 部门名称
-     */
-    @Schema(description = "部门名称")
-    @TableField("dept_name")
-    private String deptName;
-
-
-    /**
      * 请求URL
      */
     @Schema(description = "请求URL")

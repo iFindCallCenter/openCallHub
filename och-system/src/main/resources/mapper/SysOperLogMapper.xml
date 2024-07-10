@@ -10,7 +10,6 @@
         <result property="requestMethod" column="request_method" jdbcType="VARCHAR"/>
         <result property="operatorType" column="operator_type" jdbcType="INTEGER"/>
         <result property="operName" column="oper_name" jdbcType="VARCHAR"/>
-        <result property="deptName" column="dept_name" jdbcType="VARCHAR"/>
         <result property="operUrl" column="oper_url" jdbcType="VARCHAR"/>
         <result property="operIp" column="oper_ip" jdbcType="VARCHAR"/>
         <result property="operLocation" column="oper_location" jdbcType="VARCHAR"/>

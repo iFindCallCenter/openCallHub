@@ -1,1 +1,83 @@
-spring.application.name=system
+server:
+  port: 8080
+
+
+spring:
+  application:
+    name: och-api
+  # ???
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/openCallHub?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: admin # ??
+    password: 123456 # ??
+    druid:
+      initialSize: 5
+      minIdle: 10
+      maxActive: 15
+      maxWait: 60000
+      validationQuery: SELECT 1
+      filter:
+        stat:
+          enabled: true
+          log-slow-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
+      timeout: 10s
+      jedis:
+        pool:
+          min-idle: 0
+          max-idle: 8
+          max-active: 8
+          max-wait: -1ms
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    publisher-confirm-type: SIMPLE # ????
+    publisher-returns: true # ??????
+    listener:
+      simple:
+        acknowledge-mode: manual  #?? ack
+        #concurrency: # ????????
+        #max-concurrency: # ????????
+        default-requeue-rejected: true # ??????????????????true????acknowledge-mode????
+        retry:
+          enabled: true # ????????
+          max-attempts: 3 # ??????
+      direct:
+        acknowledge-mode: manual
+        retry:
+          enabled: true
+
+
+swagger:
+  title: ????
+  description: ??????
+  version: v0.0.1
+
+logging:
+  level:
+    com.och.com.och.system.mapper: debug
+
+
+springdoc:
+  swagger-ui:
+    # ??Swagger UI??
+    path: /swagger-ui.html
+    # ??Swagger UI??
+    enabled: true
+  api-docs:
+    # ??api-docs??
+    path: /v3/api-docs
+    # ??api-docs
+    enabled: true
