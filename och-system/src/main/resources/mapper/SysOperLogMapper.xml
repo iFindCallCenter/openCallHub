@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.SysOperLogMapper">
+
+    <resultMap type="com.och.system.domain.entity.SysOperLog" id="SysOperLogMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="businessType" column="business_type" jdbcType="INTEGER"/>
+        <result property="method" column="method" jdbcType="VARCHAR"/>
+        <result property="requestMethod" column="request_method" jdbcType="VARCHAR"/>
+        <result property="operatorType" column="operator_type" jdbcType="INTEGER"/>
+        <result property="operName" column="oper_name" jdbcType="VARCHAR"/>
+        <result property="deptName" column="dept_name" jdbcType="VARCHAR"/>
+        <result property="operUrl" column="oper_url" jdbcType="VARCHAR"/>
+        <result property="operIp" column="oper_ip" jdbcType="VARCHAR"/>
+        <result property="operLocation" column="oper_location" jdbcType="VARCHAR"/>
+        <result property="operParam" column="oper_param" jdbcType="VARCHAR"/>
+        <result property="jsonResult" column="json_result" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="errorMsg" column="error_msg" jdbcType="VARCHAR"/>
+        <result property="operTime" column="oper_time" jdbcType="TIMESTAMP"/>
+        <result property="costTime" column="cost_time" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+
+  <sql id="selectSysOperLogInfoVo">
+      select id,
+             title,
+             business_type,
+             method,
+             request_method,
+             operator_type,
+             oper_name,
+             dept_name,
+             oper_url,
+             oper_ip,
+             oper_location,
+             oper_param,
+             json_result,
+             status,
+             error_msg,
+             oper_time,
+             cost_time,
+             create_by,
+             create_time,
+             update_by,
+             update_time,
+             del_flag
+      from sys_oper_log
+   </sql>
+
+    <select id="getList" resultType="com.qdc.datacenters.domain.entity.SysOperLog">
+        <include refid="selectSysOperLogInfoVo"/>
+        <where>
+            <if test="title != null and title != ''">
+                and title like concat('%', #{title}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and oper_name like concat('%', #{name}, '%')
+            </if>
+            <if test="type != null">
+                and business_type  = #{type}
+            </if>
+            <if test="status != null">
+                and status  = #{status}
+            </if>
+            <if test="beginTime != null"><!-- 开始时间检索 -->
+                and oper_time &gt;= date_format(#{beginTime},'%Y-%m-%d')
+            </if>
+            <if test="endTime != null"><!-- 结束时间检索 -->
+                and oper_time &lt;= date_format(#{endTime},'%Y-%m-%d')
+            </if>
+            and del_flag = 0
+        </where>
+        order by oper_time desc
+    </select>
+
+</mapper>
+

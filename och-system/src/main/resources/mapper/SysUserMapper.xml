@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.SysUserMapper">
+
+    <resultMap type="com.och.system.domain.entity.SysUser" id="sysUserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.och.system.domain.vo.user.SysUserVo" id="sysUserVoMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <collection property="roleInfo" ofType="com.och.system.domain.vo.role.SysSimpleRoleVo">
+            <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+            <result property="status" column="role_status" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <sql id="BaseSQL">
+        select user_id,
+               user_name,
+               nick_name,
+               password,
+               avatar,
+               sex,
+               phone,
+               email,
+               status,
+               remark,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag
+        from sys_user
+    </sql>
+
+    <sql id="selectUserDetailVo">
+        select su.user_id,
+               su.user_name,
+               su.nick_name,
+               su.password,
+               su.avatar,
+               su.sex,
+               su.phone,
+               su.email,
+               su.status,
+               su.remark,
+               su.create_by,
+               su.create_time,
+               su.update_by,
+               su.update_time,
+               sr.role_id,
+               sr.role_name,
+               sr.status as role_status
+        from sys_user su
+                 left join sys_user_role sur on sur.user_id = su.user_id and sur.del_flag = 0
+                 left join sys_role sr on sr.role_id = sur.role_id and sr.del_flag = 0
+    </sql>
+
+    <select id="getByUserId" resultMap="sysUserVoMap">
+        <include refid="selectUserDetailVo"/>
+        where su.user_id = #{userId}
+    </select>
+
+    <select id="getList" resultMap="sysUserVoMap">
+        <include refid="selectUserDetailVo"/>
+        <where>
+            <if test="userIds != null and userIds.size() > 0">
+                and su.user_id in
+                <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+                    #{userId}
+                </foreach>
+            </if>
+
+            <if test="userName != null and userName != ''">
+                and su.user_name like concat('%',#{userName},'%')
+            </if>
+
+            <if test="nickName != null and nickName != ''">
+                and su.nick_name like concat('%',#{nickName},'%')
+            </if>
+
+            <if test="status != null">
+                and su.status = #{status}
+            </if>
+
+            <if test="roleIds != null and roleIds.size() > 0">
+                and sr.role_id in
+                <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+                    #{roleId}
+                </foreach>
+            </if>
+            and su.del_flag = 0
+        </where>
+    </select>
+
+    <select id="selectUserIdsByQuery" resultType="java.lang.Long">
+        select distinct su.user_id
+        from sys_user su
+        left join sys_user_role sur on sur.user_id = su.user_id and sur.del_flag = 0
+        left join sys_role sr on sr.role_id = sur.role_id and sr.del_flag = 0
+        <where>
+
+            <if test="userIds != null and userIds.size() > 0">
+                and su.user_id in
+                <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+                    #{userId}
+                </foreach>
+            </if>
+
+            <if test="userName != null and userName != ''">
+                and su.user_name like concat('%',#{userName},'%')
+            </if>
+
+            <if test="nickName != null and nickName != ''">
+                and su.nick_name like concat('%',#{nickName},'%')
+            </if>
+
+            <if test="status != null">
+                and su.status = #{status}
+            </if>
+
+            <if test="roleIds != null and roleIds.size() > 0">
+                and sr.role_id in
+                <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+                    #{roleId}
+                </foreach>
+            </if>
+            and su.del_flag = 0
+        </where>
+        order by su.user_id desc
+    </select>
+
+    <select id="getPageList" resultMap="sysUserVoMap">
+        <include refid="selectUserDetailVo"/>
+        <if test="userIds != null and userIds.size() > 0 ">
+            and su.user_id in
+            <foreach item="item" index="index" collection="userIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        and su.del_flag = 0
+        order by su.user_id desc
+    </select>
+
+    <select id="getCorpUserList" resultType="com.och.system.domain.vo.user.SysSimpleUserVo">
+        <include refid="BaseSQL"/>
+        <where>
+            and corp_user_id not null
+            and del_flag = 0
+        </where>
+    </select>
+</mapper>
+

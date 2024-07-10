@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.SysMenuMapper">
+
+    <resultMap type="com.och.system.domain.entity.SysMenu" id="SysMenuMap">
+        <result property="menuId" column="menu_id" jdbcType="INTEGER"/>
+        <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <result property="component" column="component" jdbcType="VARCHAR"/>
+        <result property="isFrame" column="is_frame" jdbcType="INTEGER"/>
+        <result property="menuType" column="menu_type" jdbcType="VARCHAR"/>
+        <result property="visible" column="visible" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="perms" column="perms" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="selectSysMenuInfoVo">
+        select menu_id,
+               menu_name,
+               parent_id,
+               order_num,
+               path,
+               component,
+               is_frame,
+               menu_type,
+               visible,
+               status,
+               perms,
+               icon,
+               remark,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag
+        from sys_menu
+    </sql>
+
+    <select id="getList" resultMap="SysMenuMap">
+        <include refid="selectSysMenuInfoVo"/>
+        <where>
+            <if test="menuName != null and menuName != ''">
+                and menu_name like concat('%',#{menuName},'%')
+            </if>
+            <if test="status != null ">
+                and status = #{status}
+            </if>
+            and del_flag = 0
+        </where>
+        order by menu_id , order_num asc
+    </select>
+
+    <select id="getMenuListByRoleIds" resultMap="SysMenuMap">
+        select
+            sm.menu_id,
+            sm.menu_name,
+            sm.parent_id,
+            sm.order_num,
+            sm.path,
+            sm.component,
+            sm.is_frame,
+            sm.menu_type,
+            sm.visible,
+            sm.status,
+            sm.perms,
+            sm.icon,
+            sm.remark,
+            sm.create_by,
+            sm.create_time,
+            sm.update_by,
+            sm.update_time,
+            sm.del_flag
+        from sys_menu sm, sys_role_menu srm
+        where
+            sm.menu_id = srm.menu_id
+          and srm.del_flag = 0
+          and sm.del_flag = 0
+        <if test="roleIds != null and roleIds.size() > 0">
+            and srm.role_id in
+            <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+                #{roleId}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>
+

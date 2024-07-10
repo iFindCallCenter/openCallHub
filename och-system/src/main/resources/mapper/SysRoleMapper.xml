@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.SysRoleMapper">
+
+    <resultMap type="com.och.system.domain.entity.SysRole" id="SysRoleMap">
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleKey" column="role_key" jdbcType="VARCHAR"/>
+        <result property="roleSort" column="role_sort" jdbcType="INTEGER"/>
+        <result property="dataScope" column="data_scope" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.och.system.domain.vo.role.SysRoleVo" id="SysRoleVoMap">
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleKey" column="role_key" jdbcType="VARCHAR"/>
+        <result property="roleSort" column="role_sort" jdbcType="INTEGER"/>
+        <result property="dataScope" column="data_scope" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <collection property="menuList" ofType="com.och.system.domain.vo.menu.SysMenuVo">
+            <result property="menuId" column="menu_id" jdbcType="INTEGER"/>
+            <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+            <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+            <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+            <result property="path" column="path" jdbcType="VARCHAR"/>
+            <result property="component" column="component" jdbcType="VARCHAR"/>
+            <result property="isFrame" column="is_frame" jdbcType="INTEGER"/>
+            <result property="menuType" column="menu_type" jdbcType="VARCHAR"/>
+            <result property="visible" column="visible" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="perms" column="perms" jdbcType="VARCHAR"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <sql id="selectRoleVo">
+        select role_id,
+               role_name,
+               role_key,
+               role_sort,
+               data_scope,
+               status,
+               remark,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag
+        from sys_role
+    </sql>
+
+    <sql id="selectRoleDetailVo">
+        select sr.role_id,
+               sr.role_name,
+               sr.role_key,
+               sr.role_sort,
+               sr.data_scope,
+               sr.status,
+               sr.remark,
+               sm.menu_id,
+               sm.menu_name,
+               sm.parent_id,
+               sm.order_num,
+               sm.path,
+               sm.component,
+               sm.is_frame,
+               sm.menu_type,
+               sm.visible,
+               sm.status,
+               sm.perms,
+               sm.icon,
+               sm.remark
+        from sys_role sr
+                 inner join sys_user_role sur on sur.role_id = sr.role_id and sur.del_flag = 0
+                 inner join sys_role_menu srm on srm.role_id = sr.role_id and srm.del_flag = 0
+                 inner join sys_menu sm on sm.menu_id = srm.menu_id and sm.del_flag = 0
+    </sql>
+
+    <select id="getRoleByUserId" resultMap="SysRoleVoMap">
+        <include refid="selectRoleDetailVo"/>
+        where sr.del_flag = 0
+          and sur.user_id = #{userId}
+    </select>
+
+    <select id="getDetail" resultMap="SysRoleVoMap">
+        <include refid="selectRoleDetailVo"/>
+        <where>
+            and sr.role_id = #{roleId}
+        </where>
+    </select>
+
+    <select id="getList" resultType="com.och.system.domain.vo.role.SysRoleVo">
+        <include refid="selectRoleVo"/>
+        <where>
+            <if test="name != null and name != ''">
+                and role_name like concat('%',#{roleName},'%')
+            </if>
+            <if test="status != null ">
+                and status = #{status}
+            </if>
+            and del_flag = 0
+        </where>
+        order by role_id desc
+    </select>
+
+
+</mapper>
+
