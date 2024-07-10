@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.FsAclMapper">
+
+    <resultMap type="com.och.system.domain.entity.FsAcl" id="FsAclResult">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="defaultType" column="default_type" jdbcType="VARCHAR"/>
+        <result property="listId" column="list_id" jdbcType="INTEGER"/>
+        <result property="nodeType" column="node_type" jdbcType="VARCHAR"/>
+        <result property="cidr" column="cidr" jdbcType="VARCHAR"/>
+        <result property="domain" column="domain" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.och.system.domain.vo.acl.FsAclVo" id="FsAclListResult">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="defaultType" column="default_type" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <collection property="nodeList" ofType="com.och.system.domain.vo.acl.FsAclNodeVo">
+            <result property="id" column="node_id" jdbcType="INTEGER"/>
+            <result property="listId" column="list_id" jdbcType="INTEGER"/>
+            <result property="nodeType" column="node_type" jdbcType="VARCHAR"/>
+            <result property="cidr" column="cidr" jdbcType="VARCHAR"/>
+            <result property="domain" column="domain" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        </collection>
+    </resultMap>
+
+    <sql id="selectFsAclVo">
+        select id,
+               name,
+               default_type,
+               list_id,
+               node_type,
+               cidr,
+               `domain`,
+               tenant_id,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag
+        from lfs_acl
+    </sql>
+
+    <select id="getIdsByQuery" resultType="java.lang.Long">
+        select distinct id from lfs_acl
+        <where>
+            <if test="name != null and name !=''">
+                and `name` like concat('%',#{name},'%')
+            </if>
+            and list_id = 0 and del_flag = 0
+        </where>
+        order by id desc
+    </select>
+
+
+    <select id="getList" resultMap="FsAclListResult">
+        select
+            la.id,
+            la.name,
+            la.default_type,
+            la.create_by,
+            la.create_time,
+            la.update_by,
+            la.update_time,
+            lnd.id as node_id,
+            lnd.list_id,
+            lnd.node_type,
+            lnd.cidr,
+            lnd.`domain`,
+            lnd.create_by,
+            lnd.create_time,
+            lnd.update_by,
+            lnd.update_time
+        from lfs_acl la
+        left join lfs_acl lnd on la.id = lnd.list_id and lnd.del_flag = 0
+        <where>
+            <if test="ids != null and ids.size() >0 ">
+                and la.id in
+                <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="name != null and name !=''">
+                and `name` like concat('%',#{name},'%')
+            </if>
+            and la.list_id = 0 and la.del_flag = 0
+        </where>
+        order by la.id desc
+    </select>
+
+
+</mapper>

@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 @Tag(name = "菜单管理")
 @RestController
-@RequestMapping("/system/menu")
+@RequestMapping("/system/v1/menu")
 public class SysMenuController extends BaseController {
 
     @Autowired

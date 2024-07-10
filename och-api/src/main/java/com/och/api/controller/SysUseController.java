@@ -35,7 +35,7 @@ import java.util.Objects;
  **/
 @Tag(name = "用户管理")
 @RestController
-@RequestMapping("/system/user")
+@RequestMapping("/system/v1/user")
 public class SysUseController extends BaseController {
 
     @Autowired

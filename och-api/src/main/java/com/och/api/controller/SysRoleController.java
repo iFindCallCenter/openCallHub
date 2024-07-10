@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 @Tag(name = "角色管理")
 @RestController
-@RequestMapping("/system/role")
+@RequestMapping("/system/v1/role")
 public class SysRoleController extends BaseController {
 
     @Autowired
