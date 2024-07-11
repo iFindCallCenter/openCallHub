@@ -36,7 +36,7 @@ public class FsConfigController extends BaseController {
     @PostMapping("/add")
     public ResResult add(@RequestBody @Validated FsConfigAddQuery query) {
         iFsConfigService.add(query);
-        return ResResult.success();
+        return success();
     }
 
     @Log(title = "修改fs配置", businessType = BusinessTypeEnum.UPDATE)
@@ -46,7 +46,7 @@ public class FsConfigController extends BaseController {
     public ResResult edit(@PathVariable("id") Integer id, @RequestBody @Validated FsConfigAddQuery query) {
         query.setId(id);
         iFsConfigService.edit(query);
-        return ResResult.success();
+        return success();
     }
 
     @Log(title = "fs配置详情", businessType = BusinessTypeEnum.SELECT)
@@ -54,7 +54,7 @@ public class FsConfigController extends BaseController {
     @Operation(summary = "fs配置详情", method = "GET")
     @PostMapping("/get/{id}")
     public ResResult<FsConfig> get(@PathVariable("id") Integer id) {
-        return ResResult.success(iFsConfigService.getDetail(id));
+        return success(iFsConfigService.getDetail(id));
     }
 
     @Log(title = "删除fs配置", businessType = BusinessTypeEnum.DELETE)
@@ -63,7 +63,7 @@ public class FsConfigController extends BaseController {
     @PostMapping("/delete")
     public ResResult delete(@RequestBody FsConfigQuery query) {
         iFsConfigService.delete(query);
-        return ResResult.success();
+        return success();
     }
 
     @Log(title = "fs配置列表(分页)", businessType = BusinessTypeEnum.SELECT)

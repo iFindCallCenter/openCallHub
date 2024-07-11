@@ -36,7 +36,7 @@ public class FsDialplanController extends BaseController {
     @PostMapping("/add")
     public ResResult add(@RequestBody @Validated FsDialplanAddQuery query) {
         iFsDialplanService.add(query);
-        return ResResult.success();
+        return success();
     }
 
     @Log(title = "修改拨号计划", businessType = BusinessTypeEnum.UPDATE)
@@ -46,14 +46,14 @@ public class FsDialplanController extends BaseController {
     public ResResult edit(@PathVariable("id") Long id, @RequestBody @Validated FsDialplanAddQuery query) {
         query.setId(id);
         iFsDialplanService.edit(query);
-        return ResResult.success();
+        return success();
     }
     @Log(title = "拨号计划详情", businessType = BusinessTypeEnum.SELECT)
     @PreAuthorize("@authz.hasPerm('system:dialplan:get')")
     @Operation(summary = "拨号计划详情", method = "GET")
     @PostMapping("/get/{id}")
     public ResResult<FsDialplan> get(@PathVariable("id") Long id) {
-        return ResResult.success(iFsDialplanService.getDetail(id));
+        return success(iFsDialplanService.getDetail(id));
     }
 
     @Log(title = "删除拨号计划", businessType = BusinessTypeEnum.DELETE)
@@ -62,7 +62,7 @@ public class FsDialplanController extends BaseController {
     @PostMapping("/delete")
     public ResResult delete(@RequestBody FsDialplanQuery query) {
         iFsDialplanService.delete(query);
-        return ResResult.success();
+        return success();
     }
 
     @Log(title = "拨号计划列表(分页)", businessType = BusinessTypeEnum.SELECT)
