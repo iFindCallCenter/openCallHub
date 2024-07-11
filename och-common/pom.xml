@@ -140,6 +140,11 @@
             <artifactId>spring-security-crypto</artifactId>
             <version>6.3.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

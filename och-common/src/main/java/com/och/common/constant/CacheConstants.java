@@ -21,4 +21,15 @@ public class CacheConstants {
      */
     public final static String LOGIN_TOKEN_KEY = "login_tokens:";
 
+
+    /**
+     * 通话记录key
+     */
+    public static final String  CALL_INFO_CACHE_KEY = "fs:callInfo:{}";
+
+    /**
+     * 通话记录两条腿关联key
+     */
+    public static final String  CALL_REL_MAP_CACHE_KEY = "fs:callRel:Map";
+
 }
