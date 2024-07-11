@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.SipAgentMapper">
+
+    <resultMap type="com.och.system.domain.entity.SipAgent" id="SipAgentResult">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="agentNumber" column="agent_number" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="onlineStatus" column="online_status" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="selectLfsAgentVo">
+        select id,
+               name,
+               user_id,
+               agent_number,
+               status,
+               online_status,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag
+        from sip_agent
+    </sql>
+
+    <sql id="selectListQueryVo">
+        select sa.id,
+               sa.name,
+               sa.user_id,
+               lu.user_name,
+               sa.agent_number,
+               sa.status
+        from sip_agent sa
+                 left join lfs_user lu on sa.user_id = lu.user_id and lu.del_flag = 0
+    </sql>
+
+
+    <select id="getInfoByQuery" resultType="com.och.system.domain.vo.agent.SipAgentVo">
+        <include refid="selectListQueryVo"/>
+        <where>
+            <if test="id != null ">
+                and sa.id = #{id}
+            </if>
+            <if test="ids != null and ids.size() > 0">
+                and sa.id in
+                <foreach collection="ids" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="agentNumber != null and agentNumber!='' ">
+                and sa.agent_number = #{agentNumber}
+            </if>
+            <if test="name != null and name != ''">
+                and sa.name like concat('%',#{name},'%')
+            </if>
+            <if test="userId != null and userId != ''">
+                and sa.user_id = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and lu.user_name like concat('%',#{userName},'%')
+            </if>
+            and sa.del_flag = 0
+        </where>
+    </select>
+
+    <select id="getInfoByAgent" resultType="com.och.system.domain.vo.agent.SipAgentVo">
+        <include refid="selectListQueryVo"/>
+        <where>
+            <if test="agentNum != null and agentNum!='' ">
+                and sa.agent_number = #{agentNum}
+            </if>
+            and sa.del_flag = 0
+        </where>
+    </select>
+
+    <select id="getDetail" resultType="com.och.system.domain.vo.agent.SipAgentVo">
+        <include refid="selectListQueryVo"/>
+        <where>
+            <if test="id != null ">
+                and sa.id = #{id}
+            </if>
+        </where>
+    </select>
+
+</mapper>
