@@ -1,7 +1,7 @@
 package com.och.api.listener;
 
 import com.och.api.event.OchLogEvent;
-import com.och.api.service.impl.ThreadFactoryImpl;
+import com.och.common.thread.ThreadFactoryImpl;
 import com.och.common.utils.ThreadUtils;
 import com.och.system.domain.entity.SysOperLog;
 import com.och.system.service.ISysOperLogService;

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.och.api.service.impl;
+package com.och.common.thread;
 
 import lombok.extern.slf4j.Slf4j;
 
