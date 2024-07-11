@@ -1,6 +1,6 @@
-package com.och.api.config;
+package com.och.security.config;
 
-import com.och.api.interceptor.FsXmlCurlInterceptor;
+import com.och.security.interceptor.FsXmlCurlInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
