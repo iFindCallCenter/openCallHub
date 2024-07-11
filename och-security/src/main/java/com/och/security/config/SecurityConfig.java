@@ -49,7 +49,7 @@ public class SecurityConfig {
                 // 设置白名单
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .requestMatchers("/system/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/auth/login",
+                        .requestMatchers("/auth/v1/login",
                                 "/captcha/**",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",

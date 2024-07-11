@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.FsSipGatewayMapper">
+
+    <resultMap type="com.och.system.domain.entity.FsSipGateway" id="FsSipGatewayResult">
+                <result property="id" column="id" jdbcType="INTEGER"/>
+                <result property="name" column="name" jdbcType="VARCHAR"/>
+                <result property="uerName" column="uer_name" jdbcType="VARCHAR"/>
+                <result property="password" column="password" jdbcType="VARCHAR"/>
+                <result property="realm" column="realm" jdbcType="VARCHAR"/>
+                <result property="proxy" column="proxy" jdbcType="VARCHAR"/>
+                <result property="register" column="register" jdbcType="INTEGER"/>
+                <result property="transport" column="transport" jdbcType="INTEGER"/>
+                <result property="fromDomain" column="from_domain" jdbcType="VARCHAR"/>
+                <result property="retryTime" column="retry_time" jdbcType="INTEGER"/>
+                <result property="pingTime" column="ping_time" jdbcType="INTEGER"/>
+                <result property="expireTime" column="expire_time" jdbcType="INTEGER"/>
+                <result property="callerIdInFrom" column="caller_id_in_from" jdbcType="INTEGER"/>
+                <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+                <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+                <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+                <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+                <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+            </resultMap>
+
+    <sql id="selectFsSipGatewayVo">
+        select id, name, uer_name, password, realm, proxy, register, transport, from_domain, retry_time, ping_time,expire_time,caller_id_in_from, create_by, create_time, update_by, update_time, del_flag from fs_sip_gateway
+    </sql>
+
+    <select id="getList" resultMap="FsSipGatewayResult">
+        <include refid="selectFsSipGatewayVo"/>
+        <where>
+            <if test="name != null and name != ''">
+                and `name` like concat('%',#{name},'%')
+            </if>
+            <if test="realm != null and realm != ''">
+                and realm = #{realm}
+            </if>
+            <if test="register != null">
+                and register = #{register}
+            </if>
+            <if test="transport != null">
+                and transport = #{transport}
+            </if>
+            and del_flag = 0
+        </where>
+        order by id desc
+    </select>
+
+</mapper>
