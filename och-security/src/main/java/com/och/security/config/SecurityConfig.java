@@ -54,8 +54,8 @@ public class SecurityConfig {
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
-                                    "/fs/cdr",
-                                    "/fs/curl",
+                                    "/fs/cdr/**",
+                                    "/fs/curl/**",
                                 "/swagger-ui/**").permitAll().anyRequest().authenticated()
                 )
                 // 禁用缓存

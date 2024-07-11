@@ -21,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry
                 .addInterceptor(fsXmlCurlInterceptor)
-                .addPathPatterns("/fs/cdr", "/fs/curl")
+                .addPathPatterns("/fs/cdr/**", "/fs/curl/**")
                 .excludePathPatterns("");
     }
 }
