@@ -52,7 +52,7 @@
       from sys_oper_log
    </sql>
 
-    <select id="getList" resultType="com.qdc.datacenters.domain.entity.SysOperLog">
+    <select id="getList" resultType="com.och.system.domain.entity.SysOperLog">
         <include refid="selectSysOperLogInfoVo"/>
         <where>
             <if test="title != null and title != ''">
