@@ -197,10 +197,10 @@ public class SysSysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUse
     public void delete(SysUserQuery query) {
         if (!CollectionUtils.isEmpty(query.getUserIds())) {
             List<SysUser> userList = query.getUserIds().stream().map(userId -> {
-                SysUser lfsUser = new SysUser();
-                lfsUser.setDelFlag(1);
-                lfsUser.setUserId(userId);
-                return lfsUser;
+                SysUser fsUser = new SysUser();
+                fsUser.setDelFlag(1);
+                fsUser.setUserId(userId);
+                return fsUser;
             }).collect(Collectors.toList());
 
             boolean update = updateBatchById(userList);

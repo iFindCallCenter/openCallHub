@@ -6,7 +6,6 @@
         <groupId>com.och</groupId>
         <artifactId>openCallHub</artifactId>
         <version>0.0.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.och</groupId>
     <artifactId>och-system</artifactId>

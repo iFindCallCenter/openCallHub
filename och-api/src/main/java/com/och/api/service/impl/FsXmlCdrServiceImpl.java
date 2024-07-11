@@ -44,7 +44,7 @@ public class FsXmlCdrServiceImpl implements IFsXmlCdrService {
             }
 
             //保存
-            //fsConfigClient.addCdrInfo(lfsCdr);
+            //fsConfigClient.addCdrInfo(fsCdr);
 
 
             //话单通知
@@ -63,72 +63,72 @@ public class FsXmlCdrServiceImpl implements IFsXmlCdrService {
         }
         Long callId = callInfo.getCallId();
 
-        FsCdr lfsCdr = new FsCdr();
+        FsCdr fsCdr = new FsCdr();
 
-        lfsCdr.setCallId(callId);
-        lfsCdr.setUuid(uuid);
-        lfsCdr.setPayload(JSONObject.toJSONString(callInfo.getChannelMap()));
-        lfsCdr.setCdrNotifyUrl(callInfo.getCdrNotifyUrl());
+        fsCdr.setCallId(callId);
+        fsCdr.setUuid(uuid);
+        fsCdr.setPayload(JSONObject.toJSONString(callInfo.getChannelMap()));
+        fsCdr.setCdrNotifyUrl(callInfo.getCdrNotifyUrl());
         if (callInfo.getRecordStartTime() != null) {
-            lfsCdr.setRecordStartTime(new Date(callInfo.getRecordStartTime()));
+            fsCdr.setRecordStartTime(new Date(callInfo.getRecordStartTime()));
         }
         if (callInfo.getRecordEndTime() != null) {
-            lfsCdr.setRecordEndTime(new Date(callInfo.getRecordEndTime()));
+            fsCdr.setRecordEndTime(new Date(callInfo.getRecordEndTime()));
         }
         if (callInfo.getRecordTime() != null) {
-            lfsCdr.setRecordSec(callInfo.getRecordTime().intValue());
+            fsCdr.setRecordSec(callInfo.getRecordTime().intValue());
         } else if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("record_seconds"))) {
-            lfsCdr.setRecordSec(Integer.valueOf(cdr.getVariables().getVariableTable().get("record_seconds")));
+            fsCdr.setRecordSec(Integer.valueOf(cdr.getVariables().getVariableTable().get("record_seconds")));
         }
 
-        lfsCdr.setRecord(callInfo.getRecord());
+        fsCdr.setRecord(callInfo.getRecord());
         switch (callInfo.getDirection()) {
             case 1:
-                lfsCdr.setDirection("inbound");
+                fsCdr.setDirection("inbound");
                 break;
             case 2:
-                lfsCdr.setDirection("outbound");
+                fsCdr.setDirection("outbound");
                 break;
             default:
-                lfsCdr.setDirection(cdr.getVariables().getVariableTable().get("direction"));
+                fsCdr.setDirection(cdr.getVariables().getVariableTable().get("direction"));
                 break;
         }
-        //lfsCdr.setDirection(cdr.getVariables().getVariableTable().get("direction"));
-        lfsCdr.setSipLocalNetworkAddr(cdr.getVariables().getVariableTable().get("sip_local_network_addr"));
-        lfsCdr.setSipNetworkIp(cdr.getVariables().getVariableTable().get("sip_network_ip"));
-        lfsCdr.setCallerIdNumber(callInfo.getCaller());
-        lfsCdr.setCallerDisplay(callInfo.getCallerDisplay());
-        lfsCdr.setDestinationNumber(callInfo.getCallee());
-        lfsCdr.setDestinationDisplay(callInfo.getCalleeDisplay());
+        //fsCdr.setDirection(cdr.getVariables().getVariableTable().get("direction"));
+        fsCdr.setSipLocalNetworkAddr(cdr.getVariables().getVariableTable().get("sip_local_network_addr"));
+        fsCdr.setSipNetworkIp(cdr.getVariables().getVariableTable().get("sip_network_ip"));
+        fsCdr.setCallerIdNumber(callInfo.getCaller());
+        fsCdr.setCallerDisplay(callInfo.getCallerDisplay());
+        fsCdr.setDestinationNumber(callInfo.getCallee());
+        fsCdr.setDestinationDisplay(callInfo.getCalleeDisplay());
         if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("start_stamp"))) {
-            lfsCdr.setStartStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("start_stamp")));
+            fsCdr.setStartStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("start_stamp")));
         }
         if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("answer_stamp"))) {
-            lfsCdr.setAnswerStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("answer_stamp")));
+            fsCdr.setAnswerStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("answer_stamp")));
         }
         if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("end_stamp"))) {
-            lfsCdr.setEndStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("end_stamp")));
+            fsCdr.setEndStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("end_stamp")));
         }
         if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("progress_stamp"))) {
-            lfsCdr.setProgressStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("progress_stamp")));
+            fsCdr.setProgressStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("progress_stamp")));
         }
         if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("bridge_stamp"))) {
-            lfsCdr.setBridgeStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("bridge_stamp")));
+            fsCdr.setBridgeStamp(DateUtil.parseDateTime(cdr.getVariables().getVariableTable().get("bridge_stamp")));
         }
         if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("duration"))) {
-            lfsCdr.setDuration(Integer.valueOf(cdr.getVariables().getVariableTable().get("duration")));
+            fsCdr.setDuration(Integer.valueOf(cdr.getVariables().getVariableTable().get("duration")));
         }
         if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("answersec"))) {
-            lfsCdr.setAnswerSec(Integer.valueOf(cdr.getVariables().getVariableTable().get("answersec")));
+            fsCdr.setAnswerSec(Integer.valueOf(cdr.getVariables().getVariableTable().get("answersec")));
         }
         if (StringUtils.isNotBlank(cdr.getVariables().getVariableTable().get("billsec"))) {
-            lfsCdr.setBillSec(Integer.valueOf(cdr.getVariables().getVariableTable().get("billsec")));
+            fsCdr.setBillSec(Integer.valueOf(cdr.getVariables().getVariableTable().get("billsec")));
         }
-        lfsCdr.setHangupCause(cdr.getVariables().getVariableTable().get("hangup_cause"));
-        lfsCdr.setReadCodec(cdr.getVariables().getVariableTable().get("read_codec"));
-        lfsCdr.setWriteCodec(cdr.getVariables().getVariableTable().get("write_codec"));
-        lfsCdr.setSipHangupDisposition(cdr.getVariables().getVariableTable().get("sip_hangup_disposition"));
-        return lfsCdr;
+        fsCdr.setHangupCause(cdr.getVariables().getVariableTable().get("hangup_cause"));
+        fsCdr.setReadCodec(cdr.getVariables().getVariableTable().get("read_codec"));
+        fsCdr.setWriteCodec(cdr.getVariables().getVariableTable().get("write_codec"));
+        fsCdr.setSipHangupDisposition(cdr.getVariables().getVariableTable().get("sip_hangup_disposition"));
+        return fsCdr;
     }
 
     private void removeCallInfo(Long callId) {

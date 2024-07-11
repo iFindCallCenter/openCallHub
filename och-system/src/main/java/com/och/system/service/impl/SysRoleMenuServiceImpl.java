@@ -42,10 +42,10 @@ public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuMapper, S
             saveBatch(sysRoleMenuList);
         } else {
             //需要删除菜单
-            List<Long> delIdList = sysRoleMenus.stream().filter(lfsRoleMenu -> !menuIds.contains(lfsRoleMenu.getMenuId())).map(SysRoleMenu::getId).collect(Collectors.toList());
+            List<Long> delIdList = sysRoleMenus.stream().filter(fsRoleMenu -> !menuIds.contains(fsRoleMenu.getMenuId())).map(SysRoleMenu::getId).collect(Collectors.toList());
             update(new LambdaUpdateWrapper<SysRoleMenu>().set(SysRoleMenu::getDelFlag, DeleteStatusEnum.DELETE_YES.getIndex()).in(SysRoleMenu::getId, delIdList));
             //需要新增菜单
-            List<Long> addMenuIds = menuIds.stream().filter(menuId -> sysRoleMenus.stream().noneMatch(lfsRoleMenu -> Objects.equals(lfsRoleMenu.getMenuId(), menuId))).collect(Collectors.toList());
+            List<Long> addMenuIds = menuIds.stream().filter(menuId -> sysRoleMenus.stream().noneMatch(fsRoleMenu -> Objects.equals(fsRoleMenu.getMenuId(), menuId))).collect(Collectors.toList());
 
             List<SysRoleMenu> addRoleMenuList = addMenuIds.stream().map(menuId -> {
                 SysRoleMenu sysRoleMenu = new SysRoleMenu();

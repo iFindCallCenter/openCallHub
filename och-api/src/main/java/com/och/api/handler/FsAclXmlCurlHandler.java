@@ -67,8 +67,8 @@ public class FsAclXmlCurlHandler implements FsXmlCurlEventStrategy {
 
     private List<AclList> getAclList() {
         List<AclList> aclListList = new LinkedList<>();
-        FsAclQuery lfsAclQuery = new FsAclQuery();
-        List<FsAclVo> aclServiceList = iFsAclService.getList(lfsAclQuery);
+        FsAclQuery fsAclQuery = new FsAclQuery();
+        List<FsAclVo> aclServiceList = iFsAclService.getList(fsAclQuery);
         if (CollectionUtil.isNotEmpty(aclServiceList)) {
             return aclServiceList.stream().map(aclVo -> {
                 AclList aclList = new AclList();
@@ -76,14 +76,14 @@ public class FsAclXmlCurlHandler implements FsXmlCurlEventStrategy {
                 aclList.setAclDefault(aclVo.getDefaultType());
                 if (CollectionUtil.isNotEmpty(aclVo.getNodeList())) {
                     List<AclNode> aclNodeList = new LinkedList<>();
-                    for (FsAclNodeVo lfsAclNodeVo : aclVo.getNodeList()) {
+                    for (FsAclNodeVo fsAclNodeVo : aclVo.getNodeList()) {
                         AclNode aclNode = new AclNode();
-                        aclNode.setType(lfsAclNodeVo.getNodeType());
-                        if (StringUtils.isNotBlank(lfsAclNodeVo.getDomain())) {
-                            aclNode.setDomain(lfsAclNodeVo.getDomain());
+                        aclNode.setType(fsAclNodeVo.getNodeType());
+                        if (StringUtils.isNotBlank(fsAclNodeVo.getDomain())) {
+                            aclNode.setDomain(fsAclNodeVo.getDomain());
                         }
-                        if (StringUtils.isNotBlank(lfsAclNodeVo.getCidr())) {
-                            aclNode.setCidr(lfsAclNodeVo.getCidr());
+                        if (StringUtils.isNotBlank(fsAclNodeVo.getCidr())) {
+                            aclNode.setCidr(fsAclNodeVo.getCidr());
                         }
                         aclNodeList.add(aclNode);
                     }

@@ -64,10 +64,10 @@ public class FsSipGatewayServiceImpl extends BaseServiceImpl<FsSipGatewayMapper,
             return;
         }
         List<FsSipGateway> list = ids.stream().map(id -> {
-            FsSipGateway lfsSipGateway = new FsSipGateway();
-            lfsSipGateway.setDelFlag(DeleteStatusEnum.DELETE_YES.getIndex());
-            lfsSipGateway.setId(id);
-            return lfsSipGateway;
+            FsSipGateway fsSipGateway = new FsSipGateway();
+            fsSipGateway.setDelFlag(DeleteStatusEnum.DELETE_YES.getIndex());
+            fsSipGateway.setId(id);
+            return fsSipGateway;
         }).collect(Collectors.toList());
         updateBatchById(list);
     }

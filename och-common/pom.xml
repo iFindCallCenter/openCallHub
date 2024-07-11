@@ -6,7 +6,6 @@
         <groupId>com.och</groupId>
         <artifactId>openCallHub</artifactId>
         <version>0.0.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.och</groupId>
     <artifactId>och-common</artifactId>
@@ -146,14 +145,5 @@
             <artifactId>dom4j</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

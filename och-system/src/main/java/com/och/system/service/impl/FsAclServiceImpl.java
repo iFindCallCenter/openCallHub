@@ -31,10 +31,10 @@ public class FsAclServiceImpl extends BaseServiceImpl<FsAclMapper, FsAcl> implem
 
     @Override
     public void addList(FsAclAddQuery query) {
-        FsAcl lfsAcl = new FsAcl();
-        lfsAcl.setName(query.getName());
-        lfsAcl.setDefaultType(query.getDefaultType());
-        save(lfsAcl);
+        FsAcl fsAcl = new FsAcl();
+        fsAcl.setName(query.getName());
+        fsAcl.setDefaultType(query.getDefaultType());
+        save(fsAcl);
     }
 
     @Override
@@ -42,18 +42,18 @@ public class FsAclServiceImpl extends BaseServiceImpl<FsAclMapper, FsAcl> implem
         if (Objects.isNull(query.getListId())) {
             throw new CommonException("规则表ID不能为空");
         }
-        FsAcl lfsAcl = new FsAcl();
-        lfsAcl.setListId(query.getListId());
-        lfsAcl.setCidr(query.getCidr());
-        lfsAcl.setNodeType(query.getNodeType());
-        lfsAcl.setDomain(query.getDomain());
-        save(lfsAcl);
+        FsAcl fsAcl = new FsAcl();
+        fsAcl.setListId(query.getListId());
+        fsAcl.setCidr(query.getCidr());
+        fsAcl.setNodeType(query.getNodeType());
+        fsAcl.setDomain(query.getDomain());
+        save(fsAcl);
     }
 
     @Override
     public void editList(FsAclAddQuery query) {
-        FsAcl lfsAcl = getById(query.getId());
-        if (Objects.isNull(lfsAcl)) {
+        FsAcl fsAcl = getById(query.getId());
+        if (Objects.isNull(fsAcl)) {
             throw new CommonException("无效ID");
         }
         FsAcl updateFsAcl = new FsAcl();
@@ -65,8 +65,8 @@ public class FsAclServiceImpl extends BaseServiceImpl<FsAclMapper, FsAcl> implem
 
     @Override
     public void editNode(FsAclNodeAddQuery query) {
-        FsAcl lfsAcl = getById(query.getId());
-        if (Objects.isNull(lfsAcl)) {
+        FsAcl fsAcl = getById(query.getId());
+        if (Objects.isNull(fsAcl)) {
             throw new CommonException("无效ID");
         }
         FsAcl updateFsAcl = new FsAcl();
@@ -96,10 +96,10 @@ public class FsAclServiceImpl extends BaseServiceImpl<FsAclMapper, FsAcl> implem
             return;
         }
         List<FsAcl> list = ids.stream().map(id -> {
-            FsAcl lfsAcl = new FsAcl();
-            lfsAcl.setId(id);
-            lfsAcl.setDelFlag(DeleteStatusEnum.DELETE_YES.getIndex());
-            return lfsAcl;
+            FsAcl fsAcl = new FsAcl();
+            fsAcl.setId(id);
+            fsAcl.setDelFlag(DeleteStatusEnum.DELETE_YES.getIndex());
+            return fsAcl;
         }).collect(Collectors.toList());
         updateBatchById(list);
     }

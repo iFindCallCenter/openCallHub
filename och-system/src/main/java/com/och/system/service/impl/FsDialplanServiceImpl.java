@@ -29,16 +29,16 @@ public class FsDialplanServiceImpl extends BaseServiceImpl<FsDialplanMapper, FsD
 
     @Override
     public void add(FsDialplanAddQuery query) {
-        FsDialplan lfsDialplan = new FsDialplan();
-        BeanUtil.copyProperties(query, lfsDialplan);
-        save(lfsDialplan);
+        FsDialplan fsDialplan = new FsDialplan();
+        BeanUtil.copyProperties(query, fsDialplan);
+        save(fsDialplan);
     }
 
     @Override
     public void edit(FsDialplanAddQuery query) {
-        FsDialplan lfsDialplan = new FsDialplan();
-        BeanUtil.copyProperties(query, lfsDialplan);
-        update(lfsDialplan, new LambdaQueryWrapper<FsDialplan>().eq(FsDialplan::getId, query.getId()));
+        FsDialplan fsDialplan = new FsDialplan();
+        BeanUtil.copyProperties(query, fsDialplan);
+        update(fsDialplan, new LambdaQueryWrapper<FsDialplan>().eq(FsDialplan::getId, query.getId()));
     }
 
     @Override

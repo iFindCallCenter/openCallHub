@@ -58,18 +58,18 @@ public class FsDialplanXmlCurlHandler implements FsXmlCurlEventStrategy {
         List<FsDialplan> dialplanList = iFsDialplanService.getList(query);
         if (CollectionUtil.isNotEmpty(dialplanList)) {
             List<Extension> extensionList = new LinkedList<>();
-            for (FsDialplan lfsDialplan : dialplanList) {
+            for (FsDialplan fsDialplan : dialplanList) {
                 Extension extension = new Extension();
-                if ("json".equals(lfsDialplan.getType())) {
-                    String content = lfsDialplan.getContent();
+                if ("json".equals(fsDialplan.getType())) {
+                    String content = fsDialplan.getContent();
                     extension = JSONObject.parseObject(content, Extension.class);
                 }
-                if ("xml".equals(lfsDialplan.getType())) {
-                    String content = lfsDialplan.getContent();
+                if ("xml".equals(fsDialplan.getType())) {
+                    String content = fsDialplan.getContent();
                     String entries = new ObjectMapper().writeValueAsString(new XmlMapper().readTree(content));
                     extension = JSONObject.parseObject(entries, Extension.class);
                 }
-                extension.setName(lfsDialplan.getName());
+                extension.setName(fsDialplan.getName());
                 extensionList.add(extension);
             }
             context.setExtension(extensionList);

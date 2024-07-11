@@ -59,15 +59,15 @@ public class FsXmlCdrXmlCurlHandler implements FsXmlCurlEventStrategy {
         Settings settings = new Settings();
         FsModulesQuery query = new FsModulesQuery();
         query.setName(name);
-        List<FsModules> lfsModules = iFsModulesService.getList(query);
-        if (CollectionUtil.isNotEmpty(lfsModules)) {
-            FsModules lfsModule = lfsModules.get(0);
-            if ("json".equals(lfsModule.getType())) {
-                String content = lfsModule.getContent();
+        List<FsModules> fsModules = iFsModulesService.getList(query);
+        if (CollectionUtil.isNotEmpty(fsModules)) {
+            FsModules fsModule = fsModules.get(0);
+            if ("json".equals(fsModule.getType())) {
+                String content = fsModule.getContent();
                 settings = JSONObject.parseObject(content, Settings.class);
             }
-            if ("xml".equals(lfsModule.getType())) {
-                String content = lfsModule.getContent();
+            if ("xml".equals(fsModule.getType())) {
+                String content = fsModule.getContent();
                 String param = new ObjectMapper().writeValueAsString(new XmlMapper().readTree(content));
                 settings = JSONObject.parseObject(param, Settings.class);
             }

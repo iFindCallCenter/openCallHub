@@ -29,16 +29,16 @@ public class FsModulesServiceImpl extends BaseServiceImpl<FsModulesMapper, FsMod
 
     @Override
     public void add(FsModulesAddQuery query) {
-        FsModules lfsModules = new FsModules();
-        BeanUtil.copyProperties(query, lfsModules);
-        save(lfsModules);
+        FsModules fsModules = new FsModules();
+        BeanUtil.copyProperties(query, fsModules);
+        save(fsModules);
     }
 
     @Override
     public void edit(FsModulesAddQuery query) {
-        FsModules lfsModules = new FsModules();
-        BeanUtil.copyProperties(query, lfsModules);
-        update(lfsModules, new LambdaQueryWrapper<FsModules>().eq(FsModules::getId, query.getId()));
+        FsModules fsModules = new FsModules();
+        BeanUtil.copyProperties(query, fsModules);
+        update(fsModules, new LambdaQueryWrapper<FsModules>().eq(FsModules::getId, query.getId()));
     }
 
     @Override
@@ -59,10 +59,10 @@ public class FsModulesServiceImpl extends BaseServiceImpl<FsModulesMapper, FsMod
             return;
         }
         List<FsModules> list = ids.stream().map(id -> {
-            FsModules lfsModules = new FsModules();
-            lfsModules.setId(id);
-            lfsModules.setDelFlag(DeleteStatusEnum.DELETE_YES.getIndex());
-            return lfsModules;
+            FsModules fsModules = new FsModules();
+            fsModules.setId(id);
+            fsModules.setDelFlag(DeleteStatusEnum.DELETE_YES.getIndex());
+            return fsModules;
         }).collect(Collectors.toList());
         updateBatchById(list);
     }

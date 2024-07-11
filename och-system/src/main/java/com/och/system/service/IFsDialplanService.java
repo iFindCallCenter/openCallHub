@@ -8,7 +8,7 @@ import com.och.system.domain.query.dialplan.FsDialplanQuery;
 import java.util.List;
 
 /**
- * fs拨号计划表(LfsDialplan)
+ * fs拨号计划表(FsDialplan)
  *
  * @author danmo
  * @date 2023-09-15 11:04:20

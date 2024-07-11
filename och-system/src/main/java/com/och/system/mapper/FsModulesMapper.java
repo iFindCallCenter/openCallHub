@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * fs模块管理表(LfsModules)
+ * fs模块管理表(FsModules)
  *
  * @author danmo
  * @date 2023-09-15 15:42:28

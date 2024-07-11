@@ -57,15 +57,15 @@ public class FsOdbcCdrXmlCurlHandler implements FsXmlCurlEventStrategy {
         OdbcCdrConfiguration cdrConfiguration = new OdbcCdrConfiguration();
         FsModulesQuery query = new FsModulesQuery();
         query.setName(name);
-        List<FsModules> lfsModules = iFsModulesService.getList(query);
-        if(CollectionUtil.isNotEmpty(lfsModules)){
-            FsModules lfsModule = lfsModules.get(0);
-            if ("json".equals(lfsModule.getType())) {
-                String content = lfsModule.getContent();
+        List<FsModules> fsModules = iFsModulesService.getList(query);
+        if(CollectionUtil.isNotEmpty(fsModules)){
+            FsModules fsModule = fsModules.get(0);
+            if ("json".equals(fsModule.getType())) {
+                String content = fsModule.getContent();
                 cdrConfiguration = JSONObject.parseObject(content, OdbcCdrConfiguration.class);
             }
-            if ("xml".equals(lfsModule.getType())) {
-                String content = lfsModule.getContent();
+            if ("xml".equals(fsModule.getType())) {
+                String content = fsModule.getContent();
                 String valueAsString = new ObjectMapper().writeValueAsString(new XmlMapper().readTree(content));
                 cdrConfiguration = JSONObject.parseObject(valueAsString, OdbcCdrConfiguration.class);
             }

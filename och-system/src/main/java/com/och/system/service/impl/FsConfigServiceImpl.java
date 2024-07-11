@@ -27,10 +27,10 @@ public class FsConfigServiceImpl extends BaseServiceImpl<FsConfigMapper, FsConfi
 
     @Override
     public void updateStatusById(Integer id, Integer status) {
-        FsConfig lfsFsConfig = new FsConfig();
-        lfsFsConfig.setStatus(status);
-        lfsFsConfig.setId(id);
-        updateById(lfsFsConfig);
+        FsConfig fsFsConfig = new FsConfig();
+        fsFsConfig.setStatus(status);
+        fsFsConfig.setId(id);
+        updateById(fsFsConfig);
     }
 
     @Override
