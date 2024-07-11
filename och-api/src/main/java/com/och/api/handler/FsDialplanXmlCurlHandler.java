@@ -12,7 +12,7 @@ import com.och.common.constant.SectionNames;
 import com.och.common.xmlcurl.dialplan.Context;
 import com.och.common.xmlcurl.dialplan.Extension;
 import com.och.system.domain.entity.FsDialplan;
-import com.och.system.domain.entity.FsXmlCurl;
+import com.och.common.domain.FsXmlCurl;
 import com.och.system.domain.query.dialplan.FsDialplanQuery;
 import com.och.system.service.IFsDialplanService;
 import jakarta.annotation.Resource;

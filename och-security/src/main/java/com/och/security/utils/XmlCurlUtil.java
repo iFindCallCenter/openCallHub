@@ -1,7 +1,7 @@
 package com.och.security.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.och.system.domain.entity.FsXmlCurl;
+import com.och.common.domain.FsXmlCurl;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Enumeration;

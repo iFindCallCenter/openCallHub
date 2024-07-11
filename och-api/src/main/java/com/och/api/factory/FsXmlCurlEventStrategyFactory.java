@@ -2,7 +2,7 @@ package com.och.api.factory;
 
 import com.och.common.annotation.XmlCurlEventName;
 import com.och.common.utils.StringUtils;
-import com.och.system.domain.entity.FsXmlCurl;
+import com.och.common.domain.FsXmlCurl;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

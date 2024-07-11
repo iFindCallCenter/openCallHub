@@ -1,7 +1,7 @@
 package com.och.api.factory;
 
 
-import com.och.system.domain.entity.FsXmlCurl;
+import com.och.common.domain.FsXmlCurl;
 
 /**
  * xml_curl策略接口

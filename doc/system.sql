@@ -190,3 +190,81 @@ create table fs_config
     comment 'fs管理配置表';
 
 
+create table fs_cdr
+(
+    call_id                bigint                             not null comment '通话唯一ID'
+        primary key,
+    uuid                   varchar(64)                        null comment 'uuid',
+    direction              varchar(16)                        null comment '呼叫方向 outbound-呼出 inbound-呼入',
+    sip_local_network_addr varchar(32)                        null comment '本地呼叫地址',
+    sip_network_ip         varchar(32)                        null comment '呼叫IP',
+    caller_id_number       varchar(64)                        null comment '主叫号码',
+    caller_display         varchar(64)                        null comment '主叫显号',
+    destination_number     varchar(64)                        null comment '被叫号码',
+    destination_display    varchar(64)                        null comment '被叫显号',
+    start_stamp            datetime                           null comment '开始时间',
+    answer_stamp           datetime                           null comment '应答时间',
+    end_stamp              datetime                           null comment '结束时间',
+    bridge_stamp           datetime                           null comment '桥接时间',
+    progress_stamp         datetime                           null comment '振铃时间',
+    duration               int                                null comment '呼叫时长',
+    answer_sec             int                                null comment '应答时长',
+    bill_sec               int                                null comment '计费时长',
+    hangup_cause           varchar(64)                        null comment '挂断原因',
+    record_start_time      datetime                           null comment '录音开始时间',
+    record_end_time        datetime                           null comment '录音结束时间',
+    record_sec             int                                null comment '录音时长',
+    record                 varchar(128)                       null comment '录音地址',
+    read_codec             varchar(64)                        null comment '读编码类型',
+    write_codec            varchar(64)                        null comment '写编码类型',
+    sip_hangup_disposition varchar(64)                        null comment '挂断意向',
+    create_by              bigint                             null comment '创建人',
+    create_time            datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    update_by              bigint                             null comment '更新人',
+    update_time            datetime                           null comment '修改时间',
+    del_flag               tinyint  default 0                 not null comment '删除标识 0 有效 1删除'
+)
+    comment 'cdr话单表';
+
+create table fs_modules
+(
+    id          bigint auto_increment comment '主键ID'
+        primary key,
+    fs_name     varchar(128)      not null comment 'FS主机名',
+    name        varchar(128)      not null comment '模块名称',
+    type        varchar(64)       not null comment '类型 xml格式,json格式',
+    content     longtext          not null comment '内容',
+    `describe`  varchar(256)      not null comment '描述',
+    create_by   bigint            null comment '创建人',
+    create_time datetime          null comment '创建时间',
+    update_by   bigint            null comment '更新人',
+    update_time datetime          null comment '更新时间',
+    del_flag    tinyint default 0 not null comment '删除标识 0 正常 1 删除'
+)
+    comment 'fs模块管理表';
+
+create table fs_sip_gateway
+(
+    id                bigint auto_increment comment '主键ID'
+        primary key,
+    name              varchar(50)                           not null comment '网关名称',
+    uer_name          varchar(50)                           null comment '账号',
+    password          varchar(64)                           null comment '密码',
+    realm             varchar(32)                           not null comment '认证地址',
+    proxy             varchar(32)                           null comment '代理地址',
+    register          tinyint     default 1                 null comment '注册类型 0-不注册 1-注册',
+    transport         tinyint     default 1                 null comment '注册协议 1-udp, 2-tcp',
+    caller_id_in_from tinyint     default 0                 not null comment '通过此网关出站呼叫时，在from字段中使用入站呼叫的callerid(0-true 1-false)',
+    from_domain       varchar(32) default ''                null comment 'from域',
+    retry_time        int         default 30                null comment '重试时间（秒）',
+    ping_time         int         default 30                null comment '心跳时间（秒）',
+    expire_time       int         default 300               not null comment '超时时间（秒）',
+    create_by         bigint                                null comment '创建人',
+    create_time       datetime    default CURRENT_TIMESTAMP null comment '创建时间',
+    update_by         bigint                                null comment '更新人',
+    update_time       datetime                              null comment '更新时间',
+    del_flag          tinyint     default 0                 not null comment '删除标识 0 正常 1 删除'
+)
+    comment 'SIP网关表';
+
+

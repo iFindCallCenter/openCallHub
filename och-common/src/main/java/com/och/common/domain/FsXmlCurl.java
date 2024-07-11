@@ -1,4 +1,4 @@
-package com.och.system.domain.entity;
+package com.och.common.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

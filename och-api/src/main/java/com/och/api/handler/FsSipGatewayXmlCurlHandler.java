@@ -19,7 +19,7 @@ import com.och.common.xmlcurl.sofia.profile.Profile;
 import com.och.common.xmlcurl.sofia.profile.Profiles;
 import com.och.common.xmlcurl.sofia.setting.Settings;
 import com.och.system.domain.entity.FsSipGateway;
-import com.och.system.domain.entity.FsXmlCurl;
+import com.och.common.domain.FsXmlCurl;
 import com.och.system.domain.query.fssip.FsSipGatewayQuery;
 import com.och.system.service.IFsSipGatewayService;
 import jakarta.annotation.Resource;

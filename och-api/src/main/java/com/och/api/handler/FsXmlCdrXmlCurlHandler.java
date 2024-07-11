@@ -12,7 +12,7 @@ import com.och.common.constant.SectionNames;
 import com.och.common.xmlcurl.sofia.setting.Settings;
 import com.och.common.xmlcurl.xmlcdr.XmlCdrConfiguration;
 import com.och.system.domain.entity.FsModules;
-import com.och.system.domain.entity.FsXmlCurl;
+import com.och.common.domain.FsXmlCurl;
 import com.och.system.domain.query.modules.FsModulesQuery;
 import com.och.system.service.IFsModulesService;
 import jakarta.annotation.Resource;

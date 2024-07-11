@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.och.api.factory.FsXmlCurlEventStrategyFactory;
 import com.och.api.service.IFsXmlCurlService;
 import com.och.security.utils.XmlCurlUtil;
-import com.och.system.domain.entity.FsXmlCurl;
+import com.och.common.domain.FsXmlCurl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -11,7 +11,7 @@ import com.och.common.annotation.XmlCurlEventName;
 import com.och.common.constant.SectionNames;
 import com.och.common.xmlcurl.odbccdr.OdbcCdrConfiguration;
 import com.och.system.domain.entity.FsModules;
-import com.och.system.domain.entity.FsXmlCurl;
+import com.och.common.domain.FsXmlCurl;
 import com.och.system.domain.query.modules.FsModulesQuery;
 import com.och.system.service.IFsModulesService;
 import jakarta.annotation.Resource;
