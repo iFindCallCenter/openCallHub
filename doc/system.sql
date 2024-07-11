@@ -130,3 +130,63 @@ create table sys_user_role
 create index user_role_id_idx
     on sys_user_role (user_id, role_id);
 
+
+
+create table fs_acl
+(
+    id           bigint auto_increment comment '主键ID'
+        primary key,
+    name         varchar(50)                 not null comment '名称',
+    default_type varchar(20) default 'allow' null comment '类型 allow-允许 deny-拒绝',
+    list_id      bigint      default 0       not null comment '列表ID',
+    node_type    varchar(20)                 null comment '规则类型 allow-允许 deny-拒绝',
+    cidr         varchar(64)                 null comment 'IP地址',
+    domain       varchar(64)                 null comment '域地址',
+    create_by    bigint                      null comment '创建人',
+    create_time  datetime                    null comment '创建时间',
+    update_by    bigint                      null comment '更新人',
+    update_time  datetime                    null comment '更新时间',
+    del_flag     tinyint     default 0       not null comment '删除标识 0 正常 1 删除'
+)
+    comment 'fs访问控制表';
+
+create table fs_dialplan
+(
+    id           bigint auto_increment comment '主键ID'
+        primary key,
+    group_id     bigint            not null comment '分组ID',
+    name         varchar(128)      not null comment '计划名称',
+    type         varchar(64)       not null comment '类型 xml格式,json格式',
+    expression   varchar(100)      null comment '正则匹配规则',
+    context_name varchar(32)       not null comment '内容类型 public、default',
+    content      longtext          not null comment '内容',
+    `describe`   varchar(256)      not null comment '描述',
+    create_by    bigint            null comment '创建人',
+    create_time  datetime          null comment '创建时间',
+    update_by    bigint            null comment '更新人',
+    update_time  datetime          null comment '更新时间',
+    del_flag     tinyint default 0 not null comment '删除标识 0 正常 1 删除'
+)
+    comment 'fs拨号计划表';
+
+create table fs_config
+(
+    id          int auto_increment comment '主键ID'
+        primary key,
+    name        varchar(128)                       null comment '名称',
+    `group`     varchar(64)                        null comment '客户端分组',
+    ip          varchar(64)                        null comment '机器地址IP',
+    port        int                                null comment '服务器端口',
+    user_name   varchar(64)                        null comment '用户名',
+    password    varchar(64)                        null comment '密码',
+    status      tinyint  default 0                 null comment '状态 0-在线 1-下线',
+    out_time    int                                null comment '超时时间（秒）',
+    create_by   bigint                             null comment '创建人',
+    create_time datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    update_by   bigint                             null comment '更新人',
+    update_time datetime                           null comment '修改时间',
+    del_flag    tinyint  default 0                 not null comment '删除标识 0 有效 1删除'
+)
+    comment 'fs管理配置表';
+
+

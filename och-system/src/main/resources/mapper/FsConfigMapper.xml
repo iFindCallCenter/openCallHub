@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.FsConfigMapper">
+
+    <resultMap type="com.och.system.domain.entity.FsConfig" id="FsConfigMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="group" column="group" jdbcType="VARCHAR"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="port" column="port" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="outTime" column="out_time" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="selectFsConfigInfoVo">
+        select id,
+               name,
+               `group`,
+               ip,
+               port,
+               user_name,
+               password,
+               status,
+               out_time,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               del_flag
+        from fs_config
+    </sql>
+
+    <select id="getList" resultType="com.och.system.domain.entity.FsConfig">
+        <include refid="selectFsConfigInfoVo"/>
+        <where>
+            <if test="name != null and name != ''">
+                and `name` like concat('%',#{name},'%')
+            </if>
+            <if test="group != null and group != ''">
+                and `group` = #{group}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="ip != null and ip != ''">
+                and ip = #{ip}
+            </if>
+            <if test="port != null">
+                and port = #{port}
+            </if>
+            and del_flag = 0
+        </where>
+    </select>
+
+</mapper>
+

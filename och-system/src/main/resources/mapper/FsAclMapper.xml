@@ -52,11 +52,11 @@
                update_by,
                update_time,
                del_flag
-        from lfs_acl
+        from fs_acl
     </sql>
 
     <select id="getIdsByQuery" resultType="java.lang.Long">
-        select distinct id from lfs_acl
+        select distinct id from fs_acl
         <where>
             <if test="name != null and name !=''">
                 and `name` like concat('%',#{name},'%')
@@ -85,8 +85,8 @@
             lnd.create_time,
             lnd.update_by,
             lnd.update_time
-        from lfs_acl la
-        left join lfs_acl lnd on la.id = lnd.list_id and lnd.del_flag = 0
+        from fs_acl la
+        left join fs_acl lnd on la.id = lnd.list_id and lnd.del_flag = 0
         <where>
             <if test="ids != null and ids.size() >0 ">
                 and la.id in
