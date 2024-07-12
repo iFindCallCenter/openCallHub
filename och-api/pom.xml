@@ -65,6 +65,8 @@
             <version>0.0.1</version>
         </dependency>
 
+
+
         <!-- rabbitmq依赖-->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>

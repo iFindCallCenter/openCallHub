@@ -32,4 +32,9 @@ public class CacheConstants {
      */
     public static final String  CALL_REL_MAP_CACHE_KEY = "fs:callRel:Map";
 
+    /**
+     * 坐席当前状态key
+     */
+    public static final String AGENT_CURRENT_STATUS_KEY = "fs:agent:status:{}";
+
 }
