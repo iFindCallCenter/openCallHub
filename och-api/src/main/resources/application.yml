@@ -1,5 +1,6 @@
 server:
-  port: 8080
+  port: 4320
+  forward-headers-strategy: framework
 
 
 spring:
@@ -9,8 +10,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/openCallHub?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: admin
-    password: 123456
+    username: opencallhub
+    password: opencallhub@123
     druid:
       initialSize: 5
       minIdle: 10
@@ -28,7 +29,7 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
-      password:
+      password: opencallhub@123
       timeout: 10s
       jedis:
         pool:
@@ -36,25 +37,25 @@ spring:
           max-idle: 8
           max-active: 8
           max-wait: -1ms
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-    virtual-host: /
-    publisher-confirm-type: SIMPLE
-    publisher-returns: true
-    listener:
-      simple:
-        acknowledge-mode: manual
-        default-requeue-rejected: true
-        retry:
-          enabled: true
-          max-attempts: 3
-      direct:
-        acknowledge-mode: manual
-        retry:
-          enabled: true
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
+#    virtual-host: /
+#    publisher-confirm-type: SIMPLE
+#    publisher-returns: true
+#    listener:
+#      simple:
+#        acknowledge-mode: manual
+#        default-requeue-rejected: true
+#        retry:
+#          enabled: true
+#          max-attempts: 3
+#      direct:
+#        acknowledge-mode: manual
+#        retry:
+#          enabled: true
 
 
 swagger:

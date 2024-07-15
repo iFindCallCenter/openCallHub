@@ -49,10 +49,8 @@ public class CaptchaController extends BaseController {
         //得到图片文件夹中所有路径
         Resource[] resources = resolver.getResources("classpath*:/images/*");
         int ranNum = new Random().nextInt(resources.length - 1);
-
         //通过随机的图片路径得到验证码图片
-        VerifyImage verifyImage = VerifyImageUtils.getVerifyImage(String.valueOf(resources[ranNum].getFile()));
-
+        VerifyImage verifyImage = VerifyImageUtils.getVerifyImage(resources[ranNum].getInputStream());
         ByteArrayOutputStream baosCutImage = new ByteArrayOutputStream();
         ImageIO.write(verifyImage.getCutImage(), "png", baosCutImage);
         baosCutImage.flush();
@@ -92,7 +90,7 @@ public class CaptchaController extends BaseController {
         Resource[] resources = resolver.getResources("classpath*:/images/*");
         int ranNum = new Random().nextInt(resources.length);
         //通过随机的图片路径得到验证码图片
-        VerifyImage verifyImage = VerifyImageUtils.getVerifyImage(String.valueOf(resources[ranNum].getFile()));
+        VerifyImage verifyImage = VerifyImageUtils.getVerifyImage(resources[ranNum].getInputStream());
         ByteArrayOutputStream baosSrcImage = new ByteArrayOutputStream();
         ImageIO.write(verifyImage.getSrcImage(), "png", baosSrcImage);
         baosSrcImage.flush();

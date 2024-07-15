@@ -53,10 +53,12 @@ public class SecurityConfig {
                                 "/captcha/**",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
+                                "/swagger-ui/index.html",
                                 "/swagger-ui.html",
+                                "/swagger-ui/**",
                                     "/fs/cdr/**",
-                                    "/fs/curl/**",
-                                "/swagger-ui/**").permitAll().anyRequest().authenticated()
+                                    "/fs/curl/**"
+                                ).permitAll().anyRequest().authenticated()
                 )
                 // 禁用缓存
                 .sessionManagement((sessionManagement) -> sessionManagement

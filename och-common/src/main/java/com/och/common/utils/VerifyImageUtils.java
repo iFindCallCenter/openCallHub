@@ -54,8 +54,8 @@ public class VerifyImageUtils {
      * @return
      * @throws IOException
      */
-    public static VerifyImage getVerifyImage(String filePath) throws IOException {
-        BufferedImage srcImage = ImageIO.read(new File(filePath));
+    public static VerifyImage getVerifyImage(InputStream filePath) throws IOException {
+        BufferedImage srcImage = ImageIO.read(filePath);
         if(Objects.isNull(srcImage)){
             throw new LoginException("验证码生成失败");
         }
