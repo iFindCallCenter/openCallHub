@@ -28,6 +28,7 @@ public class SysOperLogServiceImpl extends BaseServiceImpl<SysOperLogMapper, Sys
 
     @Override
     public List<SysOperLog> getList(SysOperationLogQuery query) {
+        startPage(query.getPageIndex(), query.getPageSize(), query.getSortField(), query.getSort());
         return this.baseMapper.getList(query);
     }
 

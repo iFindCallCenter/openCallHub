@@ -110,7 +110,7 @@ public class SysUseController extends BaseController {
         // 角色信息
         List<SysMenu> menus = new LinkedList<>();
         List<Long> roles = SecurityUtils.getRole();
-        if (!CollectionUtils.isEmpty(roles) && roles.contains(1L)) {
+        if ((!CollectionUtils.isEmpty(roles) && roles.contains(1L)) || SecurityUtils.getUserId() == 1L) {
             SysMenuQuery query = new SysMenuQuery();
             menus.addAll(iSysMenuService.getList(query));
         } else {

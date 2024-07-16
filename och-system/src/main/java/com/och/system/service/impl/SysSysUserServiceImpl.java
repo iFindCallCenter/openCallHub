@@ -192,6 +192,11 @@ public class SysSysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUse
                 .eq(SysUser::getUserId, query.getUserId()));
     }
 
+    public static void main(String[] args) {
+        String s = SecurityUtils.encryptPassword("12345678");
+        System.out.println(s);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(SysUserQuery query) {

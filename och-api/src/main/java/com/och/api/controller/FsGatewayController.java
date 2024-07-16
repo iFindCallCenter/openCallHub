@@ -31,7 +31,7 @@ public class FsGatewayController extends BaseController {
     private IFsSipGatewayService iFsSipGatewayService;
 
     @Log(title = "新增网关", businessType = BusinessTypeEnum.INSERT)
-    @PreAuthorize("@authz.hasPerm('system:gateway:add')")
+    @PreAuthorize("@authz.hasPerm('system:fs:gateway:add')")
     @Operation(summary = "新增网关", method = "POST")
     @PostMapping("/add")
     public ResResult add(@RequestBody @Validated FsSipGatewayAddQuery query) {
@@ -40,7 +40,7 @@ public class FsGatewayController extends BaseController {
     }
 
     @Log(title = "修改网关", businessType = BusinessTypeEnum.UPDATE)
-    @PreAuthorize("@authz.hasPerm('system:gateway:edit')")
+    @PreAuthorize("@authz.hasPerm('system:fs:gateway:edit')")
     @Operation(summary = "修改网关", method = "POST")
     @PostMapping("/edit/{id}")
     public ResResult edit(@PathVariable("id") Long id, @RequestBody @Validated FsSipGatewayAddQuery query) {
@@ -50,7 +50,7 @@ public class FsGatewayController extends BaseController {
     }
 
     @Log(title = "网关详情", businessType = BusinessTypeEnum.SELECT)
-    @PreAuthorize("@authz.hasPerm('system:gateway:get')")
+    @PreAuthorize("@authz.hasPerm('system:fs:gateway:get')")
     @Operation(summary = "网关详情", method = "POST")
     @PostMapping("/get/{id}")
     public ResResult<FsSipGateway> get(@PathVariable("id") Long id) {
@@ -58,7 +58,7 @@ public class FsGatewayController extends BaseController {
     }
 
     @Log(title = "删除网关", businessType = BusinessTypeEnum.DELETE)
-    @PreAuthorize("@authz.hasPerm('system:gateway:delete')")
+    @PreAuthorize("@authz.hasPerm('system:fs:gateway:delete')")
     @Operation(summary = "删除网关", method = "POST")
     @PostMapping("/delete")
     public ResResult delete(@RequestBody FsSipGatewayQuery query) {
@@ -67,7 +67,7 @@ public class FsGatewayController extends BaseController {
     }
 
     @Log(title = "网关列表(分页)", businessType = BusinessTypeEnum.SELECT)
-    @PreAuthorize("@authz.hasPerm('system:gateway:page:list')")
+    @PreAuthorize("@authz.hasPerm('system:fs:gateway:page:list')")
     @Operation(summary = "网关列表(分页)", method = "POST")
     @PostMapping("/page/list")
     public ResResult<List<FsSipGateway>> pageList(@RequestBody FsSipGatewayQuery query) {
@@ -77,7 +77,7 @@ public class FsGatewayController extends BaseController {
     }
 
     @Log(title = "网关列表(不分页)", businessType = BusinessTypeEnum.SELECT)
-    @PreAuthorize("@authz.hasPerm('system:gateway:list')")
+    @PreAuthorize("@authz.hasPerm('system:fs:gateway:list')")
     @Operation(summary = "网关列表(不分页)", method = "POST")
     @PostMapping("/list")
     public ResResult<List<FsSipGateway>> list(@RequestBody FsSipGatewayQuery query) {
