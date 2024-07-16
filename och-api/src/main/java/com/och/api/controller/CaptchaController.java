@@ -39,7 +39,7 @@ public class CaptchaController extends BaseController {
      * @throws IOException
      */
     @Operation(summary = "返回裁剪后的图及坐标", method = "GET")
-    @GetMapping("getCutImage")
+    @GetMapping("/getCutImage")
     public void getCutImage(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
         //设置响应的信息类型
@@ -80,7 +80,7 @@ public class CaptchaController extends BaseController {
      * @throws IOException
      */
     @Operation(summary = "返回原图", method = "GET")
-    @GetMapping("getSrcImage")
+    @GetMapping("/getSrcImage")
     public void getSrcImage(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         //设置响应的信息类型
         httpServletResponse.setContentType("image/png");
@@ -116,7 +116,7 @@ public class CaptchaController extends BaseController {
      * @return
      */
     @Operation(summary = "得到图片验证的坐标，进行有效性校对", method = "GET")
-    @GetMapping("verifyImage")
+    @GetMapping("/verifyImage")
     public ResResult<String> verifyImage(String x, String y, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         HttpSession httpSession = httpServletRequest.getSession();
         String ImageX = String.valueOf(httpSession.getAttribute("ImageX"));

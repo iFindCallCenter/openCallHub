@@ -80,9 +80,9 @@
                sm.icon,
                sm.remark
         from sys_role sr
-                 inner join sys_user_role sur on sur.role_id = sr.role_id and sur.del_flag = 0
-                 inner join sys_role_menu srm on srm.role_id = sr.role_id and srm.del_flag = 0
-                 inner join sys_menu sm on sm.menu_id = srm.menu_id and sm.del_flag = 0
+                 left  join sys_user_role sur on sur.role_id = sr.role_id and sur.del_flag = 0
+                 left join sys_role_menu srm on srm.role_id = sr.role_id and srm.del_flag = 0
+                 left join sys_menu sm on sm.menu_id = srm.menu_id and sm.del_flag = 0
     </sql>
 
     <select id="getRoleByUserId" resultMap="SysRoleVoMap">
