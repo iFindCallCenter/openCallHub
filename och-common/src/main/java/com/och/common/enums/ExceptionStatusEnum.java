@@ -12,7 +12,7 @@ public enum ExceptionStatusEnum {
 
     ERROR_COMMON(-1,""),
 
-    ERROR_LOGIN_VERIFY(100,"验证码错误"),
+    ERROR_LOGIN_VERIFY(100,"验证失败"),
     ERROR_LOGIN_USER(101,"用户名或密码错误"),
     /**
      * 1000 用户异常
