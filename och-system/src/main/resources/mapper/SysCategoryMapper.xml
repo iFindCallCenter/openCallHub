@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.SysCategoryMapper">
+
+    <resultMap type="com.och.system.domain.entity.SysCategory" id="SysCategoryMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="flag" column="flag" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="selectSysCategoryInfoVo">
+     
+   </sql>
+
+    <select id="categoryList" resultMap="SysCategoryMap">
+        select
+        id,
+        `type`,
+        name,
+        parent_id,
+        flag,
+        create_by,
+        create_time,
+        update_by,
+        update_time
+        from sys_category
+        <where>
+            and del_flag = 0
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+</mapper>
+
