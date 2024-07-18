@@ -62,9 +62,6 @@ public class FsClient {
     private final IFsConfigService iFsConfigService;
 
 
-    //@Autowired
-    //private LfsRocketMqMsgProducer lfsRocketMqMsgProducer;
-
     @Autowired
     private IFsEslEventService ILfsEslEventService;
 
@@ -78,18 +75,16 @@ public class FsClient {
         FsConfigQuery query = new FsConfigQuery();
         query.setGroup(groupName);
         List<FsConfig> fsConfigs = iFsConfigService.getList(query);
-        if (CollectionUtil.isNotEmpty(fsConfigs)) {
-            for (FsConfig fsConfig : fsConfigs) {
-                connect(fsConfig);
-            }
-            checkFsThread.scheduleAtFixedRate(() -> {
-                try {
-                    checkConnect();
-                } catch (Exception e) {
-                    log.error(e.getMessage(), e);
-                }
-            }, 2, 1, TimeUnit.MINUTES);
+        for (FsConfig fsConfig : fsConfigs) {
+            connect(fsConfig);
         }
+        checkFsThread.scheduleAtFixedRate(() -> {
+            try {
+                checkConnect();
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+        }, 2, 1, TimeUnit.MINUTES);
 
     }
 

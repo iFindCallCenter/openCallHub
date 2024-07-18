@@ -67,7 +67,7 @@ public class FsXmlCurlInterceptor implements HandlerInterceptor {
 
 
     private Boolean authIdentity(String resp) {
-        return StringUtils.equals(secretKey,resp);
+        return resp.contains(secretKey);
         //return MD5Utils.verify(secretKey, resp);
     }
 }
