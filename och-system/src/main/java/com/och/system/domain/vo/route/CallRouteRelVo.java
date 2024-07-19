@@ -26,6 +26,6 @@ public class CallRouteRelVo {
     @Schema(description = "网关配置编码")
     private String gatewayCoding;
 
-    @Schema(description = "网关配置类型 1-分机注册 2-外部对接 3-注册网关")
+    @Schema(description = "网关配置类型 1-分机注册 2-外部对接")
     private Integer gatewayType;
 }

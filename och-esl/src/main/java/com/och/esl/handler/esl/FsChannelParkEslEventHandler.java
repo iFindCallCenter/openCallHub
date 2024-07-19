@@ -149,7 +149,7 @@ public class FsChannelParkEslEventHandler extends AbstractFsEslEventHandler {
         //构建呼叫总线
         CallInfo callInfo = CallInfo.builder().callId(callId)
                 .agentId(sipAgent.getId()).agentNumber(sipAgent.getAgentNumber()).agentName(sipAgent.getName())
-                .tenantId(1).caller(callerNumber).callee(calleeNumber).direction(DirectionEnum.OUTBOUND.getType())
+                .caller(callerNumber).callee(calleeNumber).direction(DirectionEnum.OUTBOUND.getType())
                 .callTime(DateUtil.current())
                 .routeType(3).build();
         callInfo.addUniqueIdList(uniqueId);

@@ -7,12 +7,11 @@ import lombok.Getter;
 @Getter
 public enum GatewayTypeEnum {
 
-    //1-分机注册 2-外部对接 3-注册网关
+    //1-分机注册 2-外部对接
     INTERNAL(1,"internal"),
 
     EXTERNAL(2,"external"),
 
-    GETEWAY(3,"external"),
     ;
 
     private Integer type;

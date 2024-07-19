@@ -20,7 +20,7 @@ public interface IFsCallCacheService {
 
     Long getCallId(String uniqueId);
 
-    CallRouteVo getCallRoute(Integer tenantId, String routeNum, Integer type);
+    CallRouteVo getCallRoute(String routeNum, Integer type);
 
 
     void removeCallInfo(Long callId);

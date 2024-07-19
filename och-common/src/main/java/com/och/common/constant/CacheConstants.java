@@ -35,6 +35,6 @@ public class CacheConstants {
     /**
      * 坐席当前状态key
      */
-    public static final String AGENT_CURRENT_STATUS_KEY = "fs:agent:status:{}";
+    public static final String AGENT_CURRENT_STATUS_KEY = "fs:agent:status";
 
 }

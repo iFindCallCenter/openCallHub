@@ -64,7 +64,7 @@ public class FsCallCacheServiceImpl implements IFsCallCacheService {
     }
 
     @Override
-    public CallRouteVo getCallRoute(Integer tenantId, String routeNum, Integer type) {
+    public CallRouteVo getCallRoute(String routeNum, Integer type) {
         CallRouteQuery routeQuery = new CallRouteQuery();
         routeQuery.setRouteNumber(routeNum);
         routeQuery.setType(type);

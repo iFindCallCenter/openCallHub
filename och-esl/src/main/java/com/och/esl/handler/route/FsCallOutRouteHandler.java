@@ -29,7 +29,7 @@ public class FsCallOutRouteHandler extends FsAbstractRouteHandler {
         String otherUniqueId = RandomUtil.randomNumbers(32);
         callInfo.setCallee(routeValue);
 
-        CallRouteVo callRoute = fsCallCacheService.getCallRoute(callInfo.getTenantId(), callInfo.getCallee(), 2);
+        CallRouteVo callRoute = fsCallCacheService.getCallRoute(callInfo.getCallee(), 2);
         if(Objects.isNull(callRoute)){
             log.info("转坐席未配置号码路由 callee:{}",callInfo.getCallee());
             fsClient.hangupCall(address, callInfo.getCallId(), uniqueId);

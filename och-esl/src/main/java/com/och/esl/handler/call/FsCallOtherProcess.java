@@ -36,7 +36,7 @@ public class FsCallOtherProcess extends FsAbstractCallProcess {
         log.info("开始呼另外一条腿: callId:{}  display:{}  called:{}  uniqueId:{} ", callInfo.getCallId(), callInfo.getCalleeDisplay(), callInfo.getCallee(), otherUniqueId);
         callInfo.addUniqueIdList(otherUniqueId);
         String callee = callInfo.getCallee();
-        CallRouteVo callRoute = lfsCallCacheService.getCallRoute(callInfo.getTenantId(), callInfo.getCallee(), callInfo.getRouteType());
+        CallRouteVo callRoute = lfsCallCacheService.getCallRoute(callInfo.getCallee(), callInfo.getRouteType());
         if(Objects.isNull(callRoute)){
             log.info("CallOtherProcess 未配置号码路由 callee:{}",callee);
             fsClient.hangupCall(address, callInfo.getCallId(), lfsChannelInfo.getUniqueId());

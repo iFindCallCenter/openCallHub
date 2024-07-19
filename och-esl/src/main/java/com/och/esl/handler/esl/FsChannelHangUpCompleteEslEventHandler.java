@@ -74,12 +74,12 @@ public class FsChannelHangUpCompleteEslEventHandler extends AbstractFsEslEventHa
         if(Objects.isNull(callInfo)){
             return;
         }
-        Boolean isAgent = redisService.getCacheMapHasKey(StringUtils.format(CacheConstants.AGENT_CURRENT_STATUS_KEY, callInfo.getTenantId()), String.valueOf(callInfo.getAgentId()));
+        Boolean isAgent = redisService.getCacheMapHasKey(CacheConstants.AGENT_CURRENT_STATUS_KEY, String.valueOf(callInfo.getAgentId()));
         if(isAgent){
-            SipAgentStatusVo agentStatusVo = redisService.getCacheMapValue(StringUtils.format(CacheConstants.AGENT_CURRENT_STATUS_KEY, callInfo.getTenantId()), String.valueOf(callInfo.getAgentId()));
+            SipAgentStatusVo agentStatusVo = redisService.getCacheMapValue(CacheConstants.AGENT_CURRENT_STATUS_KEY, String.valueOf(callInfo.getAgentId()));
             agentStatusVo.setCallEndTime(callInfo.getEndTime());
             agentStatusVo.setStatus(SipAgentStatusEnum.NOT_READY.getCode());
-            redisService.setCacheMapValue(StringUtils.format(CacheConstants.AGENT_CURRENT_STATUS_KEY,callInfo.getTenantId()),String.valueOf(agentStatusVo.getId()),agentStatusVo);
+            redisService.setCacheMapValue(CacheConstants.AGENT_CURRENT_STATUS_KEY,String.valueOf(agentStatusVo.getId()),agentStatusVo);
         }
 
         Integer skillAfterTime = callInfo.gainSkillAfterTime();
@@ -89,7 +89,6 @@ public class FsChannelHangUpCompleteEslEventHandler extends AbstractFsEslEventHa
         JSONObject agentStatus = new JSONObject();
         agentStatus.put("status", SipAgentStatusEnum.READY.getCode());
         agentStatus.put("agentId", callInfo.getAgentId());
-        agentStatus.put("tenantId", callInfo.getTenantId());
         //LfsMqMsg mqMsg = LfsMqMsg.builder().msg(agentStatus.toJSONString()).msgTime(DateUtil.current()).remark(String.valueOf(callInfo.getCallId())).tenantId(callInfo.getTenantId()).build();
         //LfsBaseMqMsg msg = LfsBaseMqMsg.builder().msg(mqMsg).delayLevel(skillAfterTime).topic("agentStatus-out-0").tag("agent").build();
         //Boolean send = lfsRocketMqMsgProducer.send(msg);
