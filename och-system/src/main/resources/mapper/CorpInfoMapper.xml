@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.CorpInfoMapper">
+
+    <resultMap type="com.och.system.domain.entity.CorpInfo" id="CorpInfoResult">
+                <result property="id" column="id" jdbcType="INTEGER"/>
+                <result property="corpName" column="corp_name" jdbcType="VARCHAR"/>
+                <result property="corpCode" column="corp_code" jdbcType="VARCHAR"/>
+                <result property="secretKey" column="secret_key" jdbcType="VARCHAR"/>
+                <result property="status" column="status" jdbcType="INTEGER"/>
+                <result property="seatNum" column="seat_num" jdbcType="INTEGER"/>
+                <result property="ivrNum" column="ivr_num" jdbcType="INTEGER"/>
+                <result property="recordNum" column="record_num" jdbcType="INTEGER"/>
+                <result property="balance" column="balance" jdbcType="VARCHAR"/>
+                <result property="corpManage" column="corp_manage" jdbcType="VARCHAR"/>
+                <result property="corpManagePhone" column="corp_manage_phone" jdbcType="VARCHAR"/>
+                <result property="remark" column="remark" jdbcType="VARCHAR"/>
+                <result property="callBackPath" column="call_back_path" jdbcType="VARCHAR"/>
+                <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+                <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+                <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+                <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+                <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+            </resultMap>
+
+    <sql id="selectLfsCorpInfoVo">
+        select id, corp_name, corp_code, secret_key, status, seat_num, ivr_num, record_num, balance, corp_manage, corp_manage_phone, remark, call_back_path, create_by, create_time, update_by, update_time, del_flag from lfs_corp_info
+    </sql>
+
+</mapper>
