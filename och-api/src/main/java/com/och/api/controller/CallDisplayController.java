@@ -37,15 +37,15 @@ public class CallDisplayController extends BaseController {
     }
 
     @Operation(summary = "修改号码", method = "PUT")
-    @PutMapping("/edit/{id}")
+    @PostMapping("/edit/{id}")
     public ResResult edit(@PathVariable("id") Long id, @RequestBody @Validated CallDisplayAddQuery query) {
         query.setId(id);
         iCallDisplayService.edit(query);
         return success();
     }
 
-    @Operation(summary = "号码详情", method = "GET")
-    @GetMapping("/get/{id}")
+    @Operation(summary = "号码详情", method = "POST")
+    @PostMapping("/get/{id}")
     public ResResult<CallDisplayVo> get(@PathVariable("id") Long id) {
         return success(iCallDisplayService.getDetail(id));
     }

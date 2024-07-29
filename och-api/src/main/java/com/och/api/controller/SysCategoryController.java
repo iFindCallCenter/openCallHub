@@ -38,7 +38,7 @@ public class SysCategoryController extends BaseController {
 
     @Log(title = "修改类目",businessType = BusinessTypeEnum.UPDATE)
     @PreAuthorize("@authz.hasPerm('system:category:edit')")
-    @PutMapping("/edit/{id}")
+    @PostMapping("/edit/{id}")
     @Operation(summary = "修改类目", method = "POST")
     public ResResult edit(@PathVariable("id") Long id, @Validated @RequestBody SysCategoryAddQuery query) {
         query.setId(id);
@@ -57,7 +57,7 @@ public class SysCategoryController extends BaseController {
 
     @Log(title = "类目详情",businessType = BusinessTypeEnum.SELECT)
     @PreAuthorize("@authz.hasPerm('system:category:get')")
-    @GetMapping(value = "/get/{id}")
+    @PostMapping(value = "/get/{id}")
     @Operation(summary = "类目详情", method = "POST")
     public ResResult<SysCategory> getInfo(@PathVariable("id") Long id) {
         return success(iSysCategoryService.getDetail(id));

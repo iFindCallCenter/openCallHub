@@ -65,8 +65,8 @@ public class SipAgentController extends BaseController {
 
     @Log(title = "坐席详情", businessType = BusinessTypeEnum.SELECT)
     @PreAuthorize("@authz.hasPerm('system:agent:get')")
-    @Operation(summary = "坐席详情", method = "GET")
-    @GetMapping("/get/{id}")
+    @Operation(summary = "坐席详情", method = "POST")
+    @PostMapping("/get/{id}")
     public ResResult<SipAgentVo> getDetail(@PathVariable("id") Long id) {
         SipAgentVo detail = iSipAgentService.getDetail(id);
         return ResResult.success(detail);
