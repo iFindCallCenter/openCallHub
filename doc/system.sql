@@ -1,6 +1,6 @@
 create table sys_menu
 (
-    menu_id     bigint auto_increment comment '菜单ID'  primary key,
+    menu_id     bigint auto_increment comment '菜单ID' primary key,
     menu_name   varchar(50)                            not null comment '菜单名称',
     parent_id   bigint       default 0                 null comment '父菜单ID',
     order_num   int          default 0                 null comment '显示顺序',
@@ -94,22 +94,22 @@ create index role_menu_id_idx
 
 create table sys_user
 (
-    user_id      bigint auto_increment comment '用户ID'
+    user_id     bigint auto_increment comment '用户ID'
         primary key,
-    user_name    varchar(50)                        not null comment '用户账号',
-    nick_name    varchar(50)                        null comment '用户昵称',
-    password     varchar(64)                        null comment '密码',
-    avatar       varchar(128)                       null comment '用户头像',
-    sex          tinyint                            null comment '用户性别（0-未知 1-男 2-女）',
-    phone        varchar(32)                        null comment '手机号',
-    email        varchar(32)                        null comment '邮箱',
-    status       tinyint  default 1                 null comment '状态 1-启用 2-禁用',
-    remark       varchar(500)                       null comment '备注',
-    create_by    bigint   default 1                 null comment '创建人',
-    create_time  datetime default CURRENT_TIMESTAMP null comment '创建时间',
-    update_by    bigint                             null comment '更新人',
-    update_time  datetime                           null comment '更新时间',
-    del_flag     tinyint  default 0                 not null comment '删除标识 0 正常 1 删除'
+    user_name   varchar(50)                        not null comment '用户账号',
+    nick_name   varchar(50)                        null comment '用户昵称',
+    password    varchar(64)                        null comment '密码',
+    avatar      varchar(128)                       null comment '用户头像',
+    sex         tinyint                            null comment '用户性别（0-未知 1-男 2-女）',
+    phone       varchar(32)                        null comment '手机号',
+    email       varchar(32)                        null comment '邮箱',
+    status      tinyint  default 1                 null comment '状态 1-启用 2-禁用',
+    remark      varchar(500)                       null comment '备注',
+    create_by   bigint   default 1                 null comment '创建人',
+    create_time datetime default CURRENT_TIMESTAMP null comment '创建时间',
+    update_by   bigint                             null comment '更新人',
+    update_time datetime                           null comment '更新时间',
+    del_flag    tinyint  default 0                 not null comment '删除标识 0 正常 1 删除'
 )
     comment '用户信息表';
 
@@ -266,5 +266,142 @@ create table fs_sip_gateway
     del_flag          tinyint     default 0                 not null comment '删除标识 0 正常 1 删除'
 )
     comment 'SIP网关表';
+
+
+create table sys_category
+(
+    id          bigint                                not null comment '主键id'
+        primary key,
+    type        int                                   not null comment '1-技能 ',
+    name        varchar(50)                           null comment '分类名称',
+    parent_id   bigint(100) default 0                 null comment '父分类的id',
+    flag        tinyint     default 0                 null comment '可删除标识 0 可删除 1 不可删除',
+    create_by   bigint                                null comment '创建人',
+    create_time datetime    default CURRENT_TIMESTAMP not null comment '创建时间',
+    update_by   bigint                                null comment '更新人',
+    update_time datetime                              null comment '修改时间',
+    del_flag    tinyint     default 0                 not null comment '删除标识 0 有效 1删除'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 comment '分类配置表';
+
+
+CREATE TABLE `dispatcher`
+(
+    `id`          int(10)      NOT NULL AUTO_INCREMENT,
+    `setid`       int(11)      NOT NULL DEFAULT '0' COMMENT '分组ID',
+    `destination` varchar(192) NOT NULL DEFAULT '' COMMENT '目标地址',
+    `flags`       int(11)      NOT NULL DEFAULT '0' COMMENT '标识',
+    `priority`    int(11)      NOT NULL DEFAULT '0' COMMENT '优先级',
+    `attrs`       varchar(128) NOT NULL DEFAULT '' COMMENT '属性',
+    `description` varchar(64)  NOT NULL DEFAULT '' COMMENT '描述',
+    `status`      tinyint(4)            DEFAULT '0' COMMENT '状态 0-在线 1-下线',
+    `create_by`   bigint(20)            DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by`   bigint(20)            DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime              DEFAULT NULL COMMENT '更新时间',
+    `del_flag`    tinyint(4)   NOT NULL DEFAULT '0' COMMENT '删除标识 0 正常 1 删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 comment 'KO负载管理表';
+
+
+CREATE TABLE `subscriber`
+(
+    `id`       int(10)      NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    `username` varchar(64)  NOT NULL DEFAULT '' COMMENT '用户名称',
+    `domain`   varchar(64)  NOT NULL DEFAULT '' COMMENT '域名地址',
+    `password` varchar(64)  NOT NULL DEFAULT '' COMMENT '密码',
+    `ha1`      varchar(128) NOT NULL DEFAULT '' COMMENT '哈希码',
+    `ha1b`     varchar(128) NOT NULL DEFAULT '' COMMENT '哈希码',
+    `vmpin`    varchar(8)   NOT NULL DEFAULT '1234' COMMENT '鉴权值',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `account_idx` (`username`, `domain`),
+    KEY `username_idx` (`username`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 comment '用户订阅表（SIP 订阅）';
+
+
+create table sip_agent
+(
+    id            bigint auto_increment comment '主键ID'
+        primary key,
+    name          varchar(128)      not null comment '坐席名称',
+    user_id       bigint            not null comment '主键ID',
+    agent_number  varchar(64)       not null comment 'sip账号ID',
+    status        tinyint default 0 not null comment '开通状态 0-未开通 1-开通',
+    online_status tinyint default 3 not null comment '在线状态 0-空闲  1-忙碌 2-通话中 3-离线',
+    create_by     bigint            null comment '创建人',
+    create_time   datetime          null comment '创建时间',
+    update_by     bigint            null comment '更新人',
+    update_time   datetime          null comment '更新时间',
+    del_flag      tinyint default 0 not null comment '删除标识 0 正常 1 删除'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 comment '坐席管理表';
+
+
+create table corp_info
+(
+    id                int(20) auto_increment comment '主键ID'
+        primary key,
+    corp_name         varchar(50)                            not null comment '企业名称',
+    corp_code         varchar(64)                            null comment '企业编码',
+    secret_key        varchar(32)                            not null comment '密钥',
+    status            tinyint      default 1                 null comment '企业状态 1-启用 2-禁用',
+    seat_num          int          default 0                 null comment '坐席数量',
+    ivr_num           int          default 0                 null comment 'IVR并发数量',
+    record_num        int          default 0                 null comment '录音保留天数',
+    balance           varchar(18)  default '0'               null comment '账户余额',
+    corp_manage       varchar(50)                            null comment '企业负责人',
+    corp_manage_phone varchar(32)  default ''                null comment '企业负责人手机号',
+    call_back_path    varchar(200) default ''                null comment '回调地址',
+    remark            varchar(500) default ''                null comment '备注',
+    create_by         bigint                                 null comment '创建人',
+    create_time       datetime     default CURRENT_TIMESTAMP null comment '创建时间',
+    update_by         bigint                                 null comment '更新人',
+    update_time       datetime                               null comment '更新时间',
+    del_flag          tinyint      default 0                 not null comment '删除标识 0 正常 1 删除'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 comment '企业信息表';
+
+
+create table call_route
+(
+    id                 bigint auto_increment
+        primary key,
+    route_num          varchar(32)                           not null comment '路由号码',
+    caller_num         varchar(32) default '*'               not null comment '主叫号码',
+    len_min            int         default 4                 null comment '号码匹配最小长度',
+    len_max            int         default 32                null comment '号码匹配最大长度',
+    caller_pattern     varchar(64)                           null comment '主叫替换规则',
+    caller_replace_num varchar(32)                           null comment '主叫替换号码',
+    callee_pattern     varchar(64)                           null comment '被叫替换规则',
+    callee_replace_num varchar(32)                           null comment '被叫替换号码',
+    status             tinyint     default 0                 null comment '状态  0-未启用 1-启用',
+    create_by          bigint                                null comment '创建人',
+    create_time        datetime    default CURRENT_TIMESTAMP not null comment '创建时间',
+    update_by          bigint                                null comment '更新人',
+    update_time        datetime                              null comment '修改时间',
+    del_flag           tinyint     default 0                 not null comment '删除标识 0 有效 1删除'
+)ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 comment '号码路由表';
+
+
+create table call_display
+(
+    id          bigint auto_increment comment '主键'
+        primary key,
+    phone       varchar(18)                        not null comment '电话号码',
+    type        tinyint  default 1                 not null comment '号码类型 1-主叫显号 2-被叫显号',
+    area        varchar(64)                        null comment '归属地',
+    create_by   bigint                             null comment '创建人',
+    create_time datetime default CURRENT_TIMESTAMP null comment '创建时间',
+    update_by   bigint                             null comment '更新人',
+    update_time datetime                           null comment '更新时间',
+    del_flag    tinyint  default 0                 not null comment '删除标识 0 正常 1 删除'
+)
+    comment '显号管理';
+
+
+
+
 
 
