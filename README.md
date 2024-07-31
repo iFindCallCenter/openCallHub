@@ -12,7 +12,17 @@ OpenCallHub 是一个强大且灵活的开源呼叫中心解决方案，旨在�
     |--- och-security 安全模块
     |--- och-system   系统模块
 
-## 2、快速开始
+## 2、后端技术栈
+- java17
+- SpringBoot v3.3.1
+- MySQL
+- Redis
+- RabbitMQ
+- ESL
+- SpringSecurity + JWT
+
+
+## 3、快速开始
 1. 克隆项目到本地
 ```bash
 git clone https://github.com/iFindCallCenter/openCallHub.git
