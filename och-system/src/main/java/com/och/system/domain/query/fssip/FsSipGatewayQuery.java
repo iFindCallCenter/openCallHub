@@ -1,5 +1,6 @@
 package com.och.system.domain.query.fssip;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.och.system.domain.query.BaseQuery;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -58,4 +59,6 @@ public class FsSipGatewayQuery extends BaseQuery {
     @Schema(description = "注册协议 1-udp, 2-tcp")
     private Integer transport;
 
+    @Schema(description = "网关类型 1-internal 2-external")
+    private Integer type;
 }

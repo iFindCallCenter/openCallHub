@@ -17,10 +17,10 @@ public enum DirectionEnum {
      */
     OUTBOUND(2, "呼出");
 
-    private Integer type;
+    private final Integer type;
 
 
-    private String desc;
+    private final String desc;
 
     DirectionEnum(Integer type, String desc) {
         this.type = type;

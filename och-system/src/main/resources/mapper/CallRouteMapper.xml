@@ -65,12 +65,12 @@
              lcrr.order_num,
              lcrr.gateway_config_id,
              lgc.name as gateway_name,
-             lgc.address as gateway_address,
-             lgc.coding as gateway_coding,
-             lgc.`type` as gateway_type
+             lgc.realm as gateway_address
+--              lgc.coding as gateway_coding,
+--              lgc.`type` as gateway_type
       from call_route lcr
       left join call_route_rel lcrr on lcr.id = lcrr.call_route_id and lcrr.del_flag = 0
-      left join gateway_config lgc on lcrr.gateway_config_id = lgc.id and lgc.del_flag = 0
+      left join fs_sip_gateway lgc on lcrr.gateway_config_id = lgc.id and lgc.del_flag = 0
   </sql>
 
     <select id="getDetail" resultMap="CallRouteDetailMap">

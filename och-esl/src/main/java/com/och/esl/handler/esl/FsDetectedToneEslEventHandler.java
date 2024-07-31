@@ -21,6 +21,6 @@ public class FsDetectedToneEslEventHandler extends AbstractFsEslEventHandler {
     @Override
     public void handleEslEvent(String address, EslEvent event) {
 
-        //log.info("LfsDetectedToneEslEventHandler handle address:{} EslEvent:{}.", address, JSONObject.toJSONString(event));
+        //log.info("DetectedToneEslEventHandler handle address:{} EslEvent:{}.", address, JSONObject.toJSONString(event));
     }
 }

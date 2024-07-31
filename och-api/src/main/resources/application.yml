@@ -10,8 +10,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/openCallHub?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: admin
-    password: 123456
+    username: opencallhub
+    password: opencallhub@123
     druid:
       initialSize: 5
       minIdle: 10
@@ -29,7 +29,7 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
-      password:
+      password: opencallhub@123
       timeout: 10s
       jedis:
         pool:
@@ -81,4 +81,20 @@ springdoc:
 fs:
   xml-curl:
     auth-scheme: basic
-    secretKey: 123456
+    secretKey: b4c91178-c00e-7e42-6a9b-2c470eb0fb30
+
+system:
+  setting:
+    fsProfile: 1
+    fsFileSuffix: .wav
+    baseProfile: 1
+    uploadType: local
+    ali-cos-config:
+      host: 231
+      bucketName: 12312
+    tx-cos-config:
+      host: 12321
+      bucketName: 21321
+      regionName: 213
+      accessKey: 2312
+      secretKey: 123

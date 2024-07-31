@@ -128,6 +128,8 @@ public class FsSipGateway extends BaseEntity implements Serializable {
     @TableField("expire_time")
     private Integer expireTime;
 
-
+    @Schema(description = "网关类型 1-internal 2-external")
+    @TableField("type")
+    private Integer type;
 }
 

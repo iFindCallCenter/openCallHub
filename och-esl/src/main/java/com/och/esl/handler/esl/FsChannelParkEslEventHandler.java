@@ -17,6 +17,9 @@ import com.och.common.enums.ProcessEnum;
 import com.och.common.utils.StringUtils;
 import com.och.esl.factory.AbstractFsEslEventHandler;
 import com.och.esl.utils.EslEventUtil;
+import com.och.system.domain.entity.CallDisplay;
+import com.och.system.domain.entity.CorpInfo;
+import com.och.system.domain.query.display.CallDisplayQuery;
 import com.och.system.domain.vo.agent.SipAgentVo;
 import lombok.extern.slf4j.Slf4j;
 import org.freeswitch.esl.client.transport.event.EslEvent;
@@ -45,16 +48,22 @@ public class FsChannelParkEslEventHandler extends AbstractFsEslEventHandler {
         CallInfo callInfo = ifsCallCacheService.getCallInfoByUniqueId(uniqueId);
 
         if (callInfo == null && DirectionEnum.INBOUND.name().equals(EslEventUtil.getCallDirection(event).toUpperCase())) {
-            if (EslEventUtil.getSipReqPort(event) == null) {
-                //呼入
+            if(StringUtils.containsAny(EslEventUtil.getVariableSipUserAgent(event), "FreeSWITCH")){
                 inboundCall(address,event);
                 return;
+            }else {
+                outboundCall(address,event);
             }
-            if (!EslEventUtil.getSipContactPort(event).equals(EslEventUtil.getSipViaPort(event))) {
-                //硬话机外呼
-                sipOutboundCall(address,event);
-                return;
-            }
+//            if (EslEventUtil.getSipReqPort(event) == null) {
+//                //呼入
+//                inboundCall(address,event);
+//                return;
+//            }
+//            if (!EslEventUtil.getSipContactPort(event).equals(EslEventUtil.getSipViaPort(event))) {
+//                //硬话机外呼
+//                sipOutboundCall(address,event);
+//                return;
+//            }
         }
 
         if (Objects.isNull(callInfo) || callInfo.getHangupDir() != null) {
@@ -131,11 +140,11 @@ public class FsChannelParkEslEventHandler extends AbstractFsEslEventHandler {
     }
 
     /**
-     * 硬话机呼出
+     * 呼出
      * @param address
      * @param event
      */
-    private void sipOutboundCall(String address,EslEvent event) {
+    private void outboundCall(String address,EslEvent event) {
         String callerNumber = EslEventUtil.getCallerCallerIdNumber(event);
         String calleeNumber = EslEventUtil.getCallerDestinationNumber(event);
         String uniqueId = EslEventUtil.getUniqueId(event);
@@ -156,21 +165,21 @@ public class FsChannelParkEslEventHandler extends AbstractFsEslEventHandler {
         callInfo.setProcess(ProcessEnum.CALL_OTHER);
 
         //获取被叫显号
-//        DisplayQuery poolQuery = new DisplayQuery();
-//        poolQuery.setTenantId(callInfo.getTenantId());
-//        List<LfsDisplaySimpleVo> displayList = lfsDisplayPoolClient.tenantList(poolQuery).getRows();
-//        if(CollectionUtil.isEmpty(displayList)){
-//            log.error("软电话外呼未查询到显号信息 callId:{}  callerNumber:{} calleeNumber:{}", callId, callerNumber, calleeNumber);
-//            fsClient.hangupCall(address,callId,uniqueId);
-//            return;
-//        }
+        CallDisplayQuery displayQuery = new CallDisplayQuery();
+        displayQuery.setType(2);
+        List<CallDisplay> displayList = iCallDisplayService.getList(displayQuery);
+        if(CollectionUtil.isEmpty(displayList)){
+            log.error("电话外呼未查询到显号信息 callId:{}  callerNumber:{} calleeNumber:{}", callId, callerNumber, calleeNumber);
+            fsClient.hangupCall(address,callId,uniqueId);
+            return;
+        }
 
-//        LfsDisplaySimpleVo lfsDisplaySimple = RandomUtil.randomEle(displayList);
-//        callInfo.setCallerDisplay(callInfo.getCallee());
-//        callInfo.setCalleeDisplay(lfsDisplaySimple.getDisplayNumber());
-//
-//        LfsCorpInfo corpInfo = lfsCorpClient.getDetail(callInfo.getTenantId()).getData();
-//        callInfo.setCdrNotifyUrl(corpInfo.getCallBackPath());
+        CallDisplay displaySimple = RandomUtil.randomEle(displayList);
+        callInfo.setCallerDisplay(callInfo.getCallee());
+        callInfo.setCalleeDisplay(displaySimple.getPhone());
+
+        //CorpInfo corpInfo = lfsCorpClient.getDetail(callInfo.getTenantId()).getData();
+        //callInfo.setCdrNotifyUrl(corpInfo.getCallBackPath());
 
         //构建主叫通道
         ChannelInfo channelInfo = ChannelInfo.builder().callId(callId).uniqueId(uniqueId).cdrType(2).type(1)

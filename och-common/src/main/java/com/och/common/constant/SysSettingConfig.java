@@ -1,5 +1,7 @@
 package com.och.common.constant;
 
+import com.och.common.config.oss.AliCosConfig;
+import com.och.common.config.oss.TxCosConfig;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 @Data
-@ConfigurationProperties(prefix = "sys.setting")
+@ConfigurationProperties(prefix = "system.setting")
 public class SysSettingConfig {
 
 
@@ -36,11 +38,11 @@ public class SysSettingConfig {
     /**
      * 腾讯云cos配置
      */
-   // private TxCosConfig txCosConfig;
+    private TxCosConfig txCosConfig;
 
     /**
      * 阿里云云cos配置
      */
-    //private AliCosConfig aliCosConfig;
+    private AliCosConfig aliCosConfig;
 
 }

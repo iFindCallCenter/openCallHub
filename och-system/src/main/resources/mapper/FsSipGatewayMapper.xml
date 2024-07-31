@@ -42,6 +42,9 @@
             <if test="transport != null">
                 and transport = #{transport}
             </if>
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
             and del_flag = 0
         </where>
         order by id desc

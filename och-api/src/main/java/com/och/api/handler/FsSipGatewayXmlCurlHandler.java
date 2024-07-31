@@ -88,7 +88,7 @@ public class FsSipGatewayXmlCurlHandler implements FsXmlCurlEventStrategy {
                 .setName("external")
                 .setDomains(new Domains().setDomain(getExternalDomains()))
                 .setSettings(new Settings().setParam(getExternalSettings()))
-                .setGateways(new Gateways().setGateway(getGatewayList())));
+                .setGateways(new Gateways().setGateway(getGatewayList(2))));
         return profiles;
     }
 
@@ -208,8 +208,9 @@ public class FsSipGatewayXmlCurlHandler implements FsXmlCurlEventStrategy {
         return paramList;
     }
 
-    private List<Gateway> getGatewayList() {
+    private List<Gateway> getGatewayList(Integer type) {
         FsSipGatewayQuery query = new FsSipGatewayQuery();
+        query.setType(type);
         List<FsSipGateway> gatewayServiceList = iFsSipGatewayService.getList(query);
         if (CollectionUtil.isNotEmpty(gatewayServiceList)) {
             return gatewayServiceList.stream().map(gatewayVo -> {

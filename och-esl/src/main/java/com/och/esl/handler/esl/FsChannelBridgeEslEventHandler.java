@@ -63,17 +63,5 @@ public class FsChannelBridgeEslEventHandler extends AbstractFsEslEventHandler {
         ifsCallCacheService.saveCallInfo(callInfo);
 
         sendAgentStatus(callInfo.getCallId(),callInfo.getCaller(),callInfo.getCallee(),callInfo.getDirection(), AgentStateEnum.TALKING);
-        /*if(!callInfo.getRecord().isEmpty()){
-            ThreadUtil.execAsync(() ->{
-                try {
-                    SpeechClient speechClient = TxSpeechClient.getSpeechClient(lfsTxSpeechProperties.getAppKey(), lfsTxSpeechProperties.getAccessKeyId(), lfsTxSpeechProperties.getAccessKeySecret());
-                    TxSpeechClient.runOnce(speechClient,callInfo.getCallId(),"http://" + address.split(":")[0] + "/linkFs" + callInfo.getRecord());
-                } catch (IOException e) {
-                    log.error(e.getMessage(),e);
-                }
-
-                //SpringUtil.getBean(AliNlsClient.class).process(callInfo.getCallId(),"http://" + address.split(":")[0] + "/linkFs" + callInfo.getRecord());
-            });
-        }*/
     }
 }

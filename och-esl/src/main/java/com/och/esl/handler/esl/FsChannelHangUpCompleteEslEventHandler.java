@@ -1,7 +1,6 @@
 
 package com.och.esl.handler.esl;
 
-import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.och.common.annotation.EslEventName;
 import com.och.common.constant.CacheConstants;
@@ -10,7 +9,6 @@ import com.och.common.domain.CallInfo;
 import com.och.common.domain.ChannelInfo;
 import com.och.common.enums.AgentStateEnum;
 import com.och.common.enums.SipAgentStatusEnum;
-import com.och.common.utils.StringUtils;
 import com.och.esl.factory.AbstractFsEslEventHandler;
 import com.och.esl.utils.EslEventUtil;
 import com.och.system.domain.vo.agent.SipAgentStatusVo;
@@ -33,7 +31,7 @@ public class FsChannelHangUpCompleteEslEventHandler extends AbstractFsEslEventHa
 
     @Override
     public void handleEslEvent(String address, EslEvent event) {
-        log.info("LfsChannelHangUpCompleteEslEventHandler EslEvent:{}.", JSONObject.toJSONString(event));
+        log.info("ChannelHangUpCompleteEslEventHandler EslEvent:{}.", JSONObject.toJSONString(event));
         String uniqueId = EslEventUtil.getUniqueId(event);
         CallInfo callInfo = ifsCallCacheService.getCallInfoByUniqueId(uniqueId);
         if (Objects.isNull(callInfo)) {
@@ -60,7 +58,7 @@ public class FsChannelHangUpCompleteEslEventHandler extends AbstractFsEslEventHa
             //坐席状态变更
             changeAgentStatus(callInfo);
 
-            sendAgentStatus(callInfo.getCallId(),callInfo.getCaller(),callInfo.getCallee(),callInfo.getDirection(), AgentStateEnum.CALL_END);
+            sendAgentStatus(callInfo.getCallId(), callInfo.getCaller(), callInfo.getCallee(), callInfo.getDirection(), AgentStateEnum.CALL_END);
         }
 
         callInfo.setChannelInfoMap(uniqueId, channelInfo);
@@ -71,27 +69,25 @@ public class FsChannelHangUpCompleteEslEventHandler extends AbstractFsEslEventHa
 
 
     private void changeAgentStatus(CallInfo callInfo) {
-        if(Objects.isNull(callInfo)){
+        if (Objects.isNull(callInfo)) {
             return;
         }
         Boolean isAgent = redisService.getCacheMapHasKey(CacheConstants.AGENT_CURRENT_STATUS_KEY, String.valueOf(callInfo.getAgentId()));
-        if(isAgent){
+        if (isAgent) {
             SipAgentStatusVo agentStatusVo = redisService.getCacheMapValue(CacheConstants.AGENT_CURRENT_STATUS_KEY, String.valueOf(callInfo.getAgentId()));
             agentStatusVo.setCallEndTime(callInfo.getEndTime());
             agentStatusVo.setStatus(SipAgentStatusEnum.NOT_READY.getCode());
-            redisService.setCacheMapValue(CacheConstants.AGENT_CURRENT_STATUS_KEY,String.valueOf(agentStatusVo.getId()),agentStatusVo);
+            redisService.setCacheMapValue(CacheConstants.AGENT_CURRENT_STATUS_KEY, String.valueOf(agentStatusVo.getId()), agentStatusVo);
         }
 
         Integer skillAfterTime = callInfo.gainSkillAfterTime();
-        if(skillAfterTime != null){
+        if (skillAfterTime != null) {
             skillAfterTime = 1;
         }
         JSONObject agentStatus = new JSONObject();
         agentStatus.put("status", SipAgentStatusEnum.READY.getCode());
         agentStatus.put("agentId", callInfo.getAgentId());
-        //LfsMqMsg mqMsg = LfsMqMsg.builder().msg(agentStatus.toJSONString()).msgTime(DateUtil.current()).remark(String.valueOf(callInfo.getCallId())).tenantId(callInfo.getTenantId()).build();
-        //LfsBaseMqMsg msg = LfsBaseMqMsg.builder().msg(mqMsg).delayLevel(skillAfterTime).topic("agentStatus-out-0").tag("agent").build();
-        //Boolean send = lfsRocketMqMsgProducer.send(msg);
+
         if (true) {
             log.info("[发送MQ消息-坐席状态变更通知]成功 callId:{}", callInfo.getCallId());
         } else {
