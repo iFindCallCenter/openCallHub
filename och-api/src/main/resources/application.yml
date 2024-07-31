@@ -1,7 +1,6 @@
 server:
-  port: 4320
+  port: 8080
   forward-headers-strategy: framework
-
 
 spring:
   application:
@@ -10,8 +9,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/openCallHub?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: opencallhub
-    password: opencallhub@123
+    username: root
+    password: 123456
     druid:
       initialSize: 5
       minIdle: 10
@@ -29,7 +28,7 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
-      password: opencallhub@123
+      password:
       timeout: 10s
       jedis:
         pool:
@@ -80,19 +79,19 @@ springdoc:
 
 fs:
   xml-curl:
-    auth-scheme: basic
-    secretKey: b4c91178-c00e-7e42-6a9b-2c470eb0fb30
+    auth-scheme: basic # basic、digest
+    secretKey: b4c91178-c00e-7e42-6a9b-2c470eb0fb30 # 密钥
 
 system:
   setting:
-    fsProfile: 1
-    fsFileSuffix: .wav
-    baseProfile: 1
-    uploadType: local
-    ali-cos-config:
+    fsProfile: 1 # freeswitch文件地址
+    fsFileSuffix: .wav # freeswitch文件后缀
+    baseProfile: 1 # 文件上传地址
+    uploadType: local # 上传类型 loca-本地上传、tx-腾讯云cos、ali-阿里云
+    ali-cos-config: # 阿里云cos配置
       host: 231
       bucketName: 12312
-    tx-cos-config:
+    tx-cos-config: # 腾讯云cos配置
       host: 12321
       bucketName: 21321
       regionName: 213
