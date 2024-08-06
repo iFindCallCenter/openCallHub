@@ -15,10 +15,10 @@ OpenCallHub 是一个强大且灵活的开源呼叫中心解决方案，旨在�
 ## 2、后端技术栈
 - java17
 - SpringBoot v3.3.1
-- MySQL
-- Redis
+- MySQL + MyBatis-Plus
+- Redis 
 - RabbitMQ
-- ESL
+- ESL 
 - SpringSecurity + JWT
 
 

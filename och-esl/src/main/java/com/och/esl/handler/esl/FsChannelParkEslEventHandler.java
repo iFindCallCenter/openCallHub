@@ -98,6 +98,9 @@ public class FsChannelParkEslEventHandler extends AbstractFsEslEventHandler {
 
         callInfo.setChannelInfoMap(uniqueId,channelInfo);
         ifsCallCacheService.saveCallInfo(callInfo);
+
+        //todo 通知坐席呼叫状态
+
     }
 
     /**
@@ -160,7 +163,7 @@ public class FsChannelParkEslEventHandler extends AbstractFsEslEventHandler {
                 .agentId(sipAgent.getId()).agentNumber(sipAgent.getAgentNumber()).agentName(sipAgent.getName())
                 .caller(callerNumber).callee(calleeNumber).direction(DirectionEnum.OUTBOUND.getType())
                 .callTime(DateUtil.current())
-                .routeType(3).build();
+                .routeType(2).build();
         callInfo.addUniqueIdList(uniqueId);
         callInfo.setProcess(ProcessEnum.CALL_OTHER);
 
@@ -175,7 +178,7 @@ public class FsChannelParkEslEventHandler extends AbstractFsEslEventHandler {
         }
 
         CallDisplay displaySimple = RandomUtil.randomEle(displayList);
-        callInfo.setCallerDisplay(callInfo.getCallee());
+        callInfo.setCallerDisplay(sipAgent.getAgentNumber());
         callInfo.setCalleeDisplay(displaySimple.getPhone());
 
         //CorpInfo corpInfo = lfsCorpClient.getDetail(callInfo.getTenantId()).getData();
