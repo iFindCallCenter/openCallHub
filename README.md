@@ -20,6 +20,7 @@ OpenCallHub 是一个强大且灵活的开源呼叫中心解决方案，旨在�
 - RabbitMQ
 - ESL 
 - SpringSecurity + JWT
+- WebSocket
 
 
 ## 3、快速开始
