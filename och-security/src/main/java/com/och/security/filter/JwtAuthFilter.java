@@ -49,9 +49,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
-            // 从token中解析出username
-            username = JwtUtils.getUserName(token);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 根据jwt解析出来的username，获取数据库中的用户信息，封装UserDetails对象
                 LoginUserInfo userDetails = JSONObject.parseObject(JwtUtils.getLoginUserInfo(token),LoginUserInfo.class);
                 // TODO 如果令牌有效，封装一个UsernamePasswordAuthenticationToken对象

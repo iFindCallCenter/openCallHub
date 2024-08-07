@@ -37,4 +37,9 @@ public class CacheConstants {
      */
     public static final String AGENT_CURRENT_STATUS_KEY = "fs:agent:status";
 
+    /**
+     * socket登录用户池key
+     */
+    public static final String CLIENT_USER_POOL_KEY = "client_user_pool";
+
 }

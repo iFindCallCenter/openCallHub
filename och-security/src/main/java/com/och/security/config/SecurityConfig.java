@@ -1,9 +1,9 @@
 package com.och.security.config;
 
-import com.och.security.handler.OchAccessDeniedHandler;
-import com.och.security.handler.OchAuthenticationEntryPoint;
 import com.och.security.authority.OchUserDetailsService;
 import com.och.security.filter.JwtAuthFilter;
+import com.och.security.handler.OchAccessDeniedHandler;
+import com.och.security.handler.OchAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,9 +56,10 @@ public class SecurityConfig {
                                 "/swagger-ui/index.html",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
-                                    "/fs/cdr/**",
-                                    "/fs/curl/**"
-                                ).permitAll().anyRequest().authenticated()
+                                "/fs/cdr/**",
+                                "/fs/curl/**",
+                                "/ws/**"
+                        ).permitAll().anyRequest().authenticated()
                 )
                 // 禁用缓存
                 .sessionManagement((sessionManagement) -> sessionManagement
