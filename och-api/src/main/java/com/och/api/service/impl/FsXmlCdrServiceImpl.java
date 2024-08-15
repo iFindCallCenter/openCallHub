@@ -27,6 +27,7 @@ public class FsXmlCdrServiceImpl implements IFsXmlCdrService {
     @Autowired
     private RedisService redisService;
 
+
     @Async
     @Override
     public void cdrHandler(String reqText) throws ParserException {
@@ -44,8 +45,7 @@ public class FsXmlCdrServiceImpl implements IFsXmlCdrService {
             }
 
             //保存
-            //fsConfigClient.addCdrInfo(fsCdr);
-
+            
 
             //话单通知
             String cdrNotifyUrl = fsCdr.getCdrNotifyUrl();
