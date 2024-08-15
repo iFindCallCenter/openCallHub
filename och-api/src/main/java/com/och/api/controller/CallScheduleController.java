@@ -31,6 +31,7 @@ public class CallScheduleController extends BaseController {
     private ICallScheduleService iCallScheduleService;
 
 
+
     @Log(title = "新增日程", businessType = BusinessTypeEnum.INSERT)
     @PreAuthorize("@authz.hasPerm('call:schedule:add')")
     @Operation(summary = "新增日程", method = "POST")
