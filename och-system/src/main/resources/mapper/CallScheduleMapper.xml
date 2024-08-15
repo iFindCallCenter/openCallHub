@@ -36,7 +36,7 @@
                update_time,
                tenant_id,
                del_flag
-        from lfs_schedule
+        from call_schedule
     </sql>
     <select id="getList" resultMap="CallScheduleMap">
         <include refid="selectCallScheduleInfoVo"/>
