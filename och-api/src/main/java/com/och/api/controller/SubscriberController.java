@@ -82,7 +82,7 @@ public class SubscriberController extends BaseController {
     @PreAuthorize("@authz.hasPerm('system:subscriber:page:list')")
     @Operation(summary = "SIP号码列表", method = "POST")
     @PostMapping("/list")
-    public ResResult<List<Subscriber>> list(@RequestBody SubscriberQuery query) {
+    public ResResult<PageInfo<Subscriber>> list(@RequestBody SubscriberQuery query) {
         List<Subscriber> list = subscriberService.getPageList(query);
         PageInfo<Subscriber> pageInfo = new PageInfo<>(list);
         return success(pageInfo);

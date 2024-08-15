@@ -1,5 +1,6 @@
 package com.och.api.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.och.common.annotation.Log;
 import com.och.common.base.BaseController;
 import com.och.common.base.ResResult;
@@ -70,9 +71,10 @@ public class FsModulesController extends BaseController {
     @PreAuthorize("@authz.hasPerm('system:fs:modules:page:list')")
     @Operation(summary = "模块配置列表(分页)", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<FsModules>> pageList(@RequestBody FsModulesQuery query) {
+    public ResResult<PageInfo<FsModules>> pageList(@RequestBody FsModulesQuery query) {
         List<FsModules> list = iFsModulesService.getPageList(query);
-        return success(list);
+        PageInfo<FsModules> pageInfo = new PageInfo<>(list);
+        return success(pageInfo);
     }
 
     @Log(title = "模块配置列表(不分页)", businessType = BusinessTypeEnum.SELECT)

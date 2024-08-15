@@ -70,7 +70,7 @@ public class FsConfigController extends BaseController {
     @PreAuthorize("@authz.hasPerm('system:fs:page:list')")
     @Operation(summary = "fs配置列表(分页)", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<FsConfig>> pageList(@RequestBody FsConfigQuery query) {
+    public ResResult<PageInfo<FsConfig>> pageList(@RequestBody FsConfigQuery query) {
 
         List<FsConfig> list = iFsConfigService.getPageList(query);
         PageInfo<FsConfig> pageInfo = new PageInfo<>(list);

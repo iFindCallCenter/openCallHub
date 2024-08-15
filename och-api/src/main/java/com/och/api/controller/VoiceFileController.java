@@ -71,7 +71,7 @@ public class VoiceFileController extends BaseController {
     @PreAuthorize("@authz.hasPerm('call:voice:file:page:list')")
     @Operation(summary = "语音文件列表(分页)", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<VoiceFileVo>> pageList(@RequestBody VoiceFileQuery query) {
+    public ResResult<PageInfo<VoiceFileVo>> pageList(@RequestBody VoiceFileQuery query) {
         List<VoiceFileVo> list = iVoiceFileService.getPageList(query);
         PageInfo<VoiceFileVo> pageInfo = new PageInfo<>(list);
         return success(pageInfo);

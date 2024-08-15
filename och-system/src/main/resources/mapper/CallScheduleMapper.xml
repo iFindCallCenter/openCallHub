@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.och.system.mapper.CallScheduleMapper">
+
+    <resultMap type="com.och.system.domain.entity.CallSchedule" id="CallScheduleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="startDay" column="start_day" jdbcType="VARCHAR"/>
+        <result property="endDay" column="end_day" jdbcType="VARCHAR"/>
+        <result property="startTime" column="start_time" jdbcType="VARCHAR"/>
+        <result property="endTime" column="end_time" jdbcType="VARCHAR"/>
+        <result property="workCycle" column="work_cycle" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="tenantId" column="tenant_id" jdbcType="INTEGER"/>
+        <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="selectCallScheduleInfoVo">
+        select id,
+               name,
+               `level`,
+               `type`,
+               start_day,
+               end_day,
+               start_time,
+               end_time,
+               work_cycle,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               tenant_id,
+               del_flag
+        from lfs_schedule
+    </sql>
+    <select id="getList" resultMap="CallScheduleMap">
+        <include refid="selectCallScheduleInfoVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="ids != null and ids.size() > 0">
+                and id in
+                <foreach collection="ids" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="name != null and name != ''">
+                and `name` like concat('%',#{name},'%')
+            </if>
+            <if test="level != null">
+                and `level` = #{level}
+            </if>
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
+            <if test="workCycle != null and workCycle == 1">
+                and find_in_set(dayofweek(curdate())-1,work_cycle)
+            </if>
+            and del_flag = 0
+        </where>
+    </select>
+
+
+</mapper>
+

@@ -1,5 +1,6 @@
 package com.och.api.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.och.common.annotation.Log;
 import com.och.common.base.BaseController;
 import com.och.common.base.ResResult;
@@ -69,8 +70,10 @@ public class CorpController extends BaseController {
     @PreAuthorize("@authz.hasPerm('system:corp:page:list')")
     @Operation(summary = "企业列表(分页)", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<CorpInfo>> list(@RequestBody CorpQuery query) {
-        return success(iCorpInfoService.getPageList(query));
+    public ResResult<PageInfo<CorpInfo>> list(@RequestBody CorpQuery query) {
+        List<CorpInfo> pageList = iCorpInfoService.getPageList(query);
+        PageInfo<CorpInfo> pageInfo = PageInfo.of(pageList);
+        return success(pageInfo);
     }
 
     @Operation(summary = "通过code获取企业详情", method = "POST")

@@ -76,7 +76,7 @@ public class SipAgentController extends BaseController {
     @PreAuthorize("@authz.hasPerm('system:agent:page:list')")
     @Operation(summary = "坐席列表", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<SipAgentListVo>> getPageList(@RequestBody SipAgentQuery query) {
+    public ResResult<PageInfo<SipAgentListVo>> getPageList(@RequestBody SipAgentQuery query) {
         PageInfo<SipAgentListVo> list = iSipAgentService.getPageList(query);
         return success(list);
     }

@@ -69,7 +69,7 @@ public class FsDialplanController extends BaseController {
     @PreAuthorize("@authz.hasPerm('system:dialplan:page:list')")
     @Operation(summary = "拨号计划列表(分页)", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<FsDialplan>> pageList(@RequestBody FsDialplanQuery query) {
+    public ResResult<PageInfo<FsDialplan>> pageList(@RequestBody FsDialplanQuery query) {
         List<FsDialplan> list = iFsDialplanService.getPageList(query);
         PageInfo<FsDialplan> pageInfo = new PageInfo<>(list);
         return success(pageInfo);

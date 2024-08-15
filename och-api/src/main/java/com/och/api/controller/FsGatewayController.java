@@ -70,7 +70,7 @@ public class FsGatewayController extends BaseController {
     @PreAuthorize("@authz.hasPerm('system:fs:gateway:page:list')")
     @Operation(summary = "网关列表(分页)", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<FsSipGateway>> pageList(@RequestBody FsSipGatewayQuery query) {
+    public ResResult<PageInfo<FsSipGateway>> pageList(@RequestBody FsSipGatewayQuery query) {
         List<FsSipGateway> list = iFsSipGatewayService.getPageList(query);
         PageInfo<FsSipGateway> pageInfo = new PageInfo<>(list);
         return success(pageInfo);

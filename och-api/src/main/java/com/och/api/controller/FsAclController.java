@@ -91,7 +91,7 @@ public class FsAclController extends BaseController {
     @PreAuthorize("@authz.hasPerm('system:acl:page:list')")
     @Operation(summary = "acl列表(分页)", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<FsAclVo>> pageList(@RequestBody FsAclQuery query) {
+    public ResResult<PageInfo<FsAclVo>> pageList(@RequestBody FsAclQuery query) {
         PageInfo<FsAclVo> list = iFsAclService.pageList(query);
         return success(list);
     }

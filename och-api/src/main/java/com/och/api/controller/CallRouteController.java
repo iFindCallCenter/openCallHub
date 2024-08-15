@@ -1,5 +1,6 @@
 package com.och.api.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.och.common.annotation.Log;
 import com.och.common.base.BaseController;
 import com.och.common.base.ResResult;
@@ -67,9 +68,10 @@ public class CallRouteController extends BaseController {
     @PreAuthorize("@authz.hasPerm('call:rout:page:list')")
     @Operation(summary = "号码路由列表", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<CallRoute>> pageList(@RequestBody CallRouteQuery query) {
+    public ResResult<PageInfo<CallRoute>> pageList(@RequestBody CallRouteQuery query) {
         List<CallRoute> list = iCallRouteService.getPageList(query);
-        return success(list);
+        PageInfo<CallRoute> pageInfo = PageInfo.of(list);
+        return success(pageInfo);
     }
 
     @Operation(summary = "号码路由条件查询", method = "POST")

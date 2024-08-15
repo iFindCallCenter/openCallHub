@@ -1,5 +1,6 @@
 package com.och.api.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.och.common.base.BaseController;
 import com.och.common.base.ResResult;
 import com.och.system.domain.entity.CallDisplay;
@@ -59,7 +60,7 @@ public class CallDisplayController extends BaseController {
 
     @Operation(summary = "号码列表(分页)", method = "POST")
     @PostMapping("/page/list")
-    public ResResult<List<CallDisplayVo>> pageList(@RequestBody CallDisplayQuery query) {
+    public ResResult<PageInfo<CallDisplayVo>> pageList(@RequestBody CallDisplayQuery query) {
         return success();
     }
 
