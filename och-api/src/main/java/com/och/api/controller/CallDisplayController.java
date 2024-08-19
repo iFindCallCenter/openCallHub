@@ -56,7 +56,7 @@ public class CallDisplayController extends BaseController {
     @PreAuthorize("@authz.hasPerm('call:display:get')")
     @Operation(summary = "号码详情", method = "POST")
     @PostMapping("/get/{id}")
-    public ResResult<CallDisplayVo> get(@PathVariable("id") Long id) {
+    public ResResult<CallDisplay> get(@PathVariable("id") Long id) {
         return success(iCallDisplayService.getDetail(id));
     }
 

@@ -21,7 +21,7 @@ public interface ICallDisplayService extends IBaseService<CallDisplay> {
 
     void edit(CallDisplayAddQuery query);
 
-    CallDisplayVo getDetail(Long id);
+    CallDisplay getDetail(Long id);
 
     void delete(CallDisplayQuery query);
 

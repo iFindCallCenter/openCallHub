@@ -2,8 +2,11 @@ package com.och.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.och.system.domain.entity.CallDisplay;
+import com.och.system.domain.query.display.CallDisplayQuery;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 号码管理(CallDisplay)表数据库访问层
@@ -15,5 +18,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface CallDisplayMapper extends BaseMapper<CallDisplay> {
 
+    List<CallDisplay> getList(CallDisplayQuery query);
 }
 

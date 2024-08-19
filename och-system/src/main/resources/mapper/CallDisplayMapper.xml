@@ -19,5 +19,25 @@
         select id, group_id, phone, type, area, create_by, create_time, update_by, update_time, del_flag from call_display
     </sql>
 
+    <select id="getList" resultMap="CallDisplayMap">
+        <include refid="selectCallDisplayVo"/>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="groupId != null">
+                and group_id = #{groupId}
+            </if>
+            and del_flag = 0
+        </where>
+        order by id desc
+    </select>
+
 </mapper>
 
