@@ -77,4 +77,8 @@ public class SecurityUtils extends com.och.common.utils.SecurityUtils {
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
         return (ServletRequestAttributes) attributes;
     }
+
+    public static String  getCorpCode(){
+        return getCurrentUserInfo().getCorpCode();
+    }
 }

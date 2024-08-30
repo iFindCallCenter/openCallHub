@@ -47,6 +47,8 @@ public class LoginUserInfo implements UserDetails, CredentialsContainer {
     private boolean credentialsNonExpired;
     @Schema(description = "是否启用",hidden = true)
     private boolean enabled;
+    @Schema(description = "公司编码")
+    private String corpCode;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

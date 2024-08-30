@@ -125,7 +125,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-amqp</artifactId>
-                <version>${amqp.version}</version>
             </dependency>
 
             <!--forest依赖(HTTP对外请求框架)-->
