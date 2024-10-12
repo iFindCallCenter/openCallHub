@@ -43,3 +43,9 @@ java -jar och-api.0.0.1.jar
 5. 访问地址 http://localhost:8080/swagger-ui.html
 
 6. 登录账号 admin/123456
+
+7. 联系方式： 有前端能力可加微信交流
+
+![微信](image.png)
+
+8. **说明：** 本项目仅供学习交流使用，请勿用于非法用途，否则后果自负。
