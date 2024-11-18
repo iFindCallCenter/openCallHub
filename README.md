@@ -1,7 +1,7 @@
 # openCallHub
 OpenCallHub 是一个强大且灵活的开源呼叫中心解决方案，旨在提供全面的客户服务和支持功能
 
-#### 项目地址 [GitHub](https://github.com/iFindCallCenter/openCallHub)
+#### 项目地址 [Gitee](https://gitee.com/sxwdmjy/openCallHub)
 
 ## 1、项目结构
 
